@@ -1,0 +1,376 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #ffe2c1;
+    color: #17130f;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation Bar */
+.navbar {
+    width: 100%;
+    min-height: 66px;
+    background: #ffbf7c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5.7%;
+    box-shadow: 0 2px 7px rgba(90, 50, 10, 0.12);
+}
+
+.brand,
+.footer-brand h2 {
+    font-family: 'Pacifico', cursive;
+    color: #17110c;
+    text-decoration: none;
+}
+
+.brand {
+    font-size: 25px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 38px;
+}
+
+.navbar nav a {
+    color: #17130f;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.navbar nav a:hover {
+    color: #b65e1b;
+}
+
+/* Main Content */
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 28px 15px;
+}
+
+/* Login Card */
+.login-card {
+    width: 100%;
+    max-width: 555px;
+    background: rgba(255, 248, 237, 0.48);
+    border: 1px solid #f1c99f;
+    border-radius: 17px;
+    padding: 27px 30px 30px;
+    box-shadow: 0 8px 22px rgba(118, 72, 25, 0.12);
+}
+
+.login-card h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 43px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.title-underline {
+    width: 105px;
+    height: 5px;
+    background: #f5a34e;
+    border-radius: 50%;
+    margin: 0 auto 17px;
+    transform: rotate(-4deg);
+}
+
+.login-card h2 {
+    font-size: 19px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+}
+
+/* Form Fields */
+.form-group {
+    margin-bottom: 21px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 47px;
+    padding: 0 20px;
+    border: 1px solid #dfcbb5;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.38);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #efa14e;
+    box-shadow: 0 0 0 3px rgba(239, 161, 78, 0.16);
+}
+
+.form-group input::placeholder {
+    color: #8c857d;
+}
+
+/* Password Visibility */
+.password-box {
+    position: relative;
+}
+
+.password-box input {
+    padding-right: 50px;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+
+.toggle-password svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: #514b44;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Remember Me and Forgot Password */
+.login-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: -2px 0 24px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.remember input {
+    width: 18px;
+    height: 18px;
+    accent-color: #ef9d47;
+    cursor: pointer;
+}
+
+.forgot-link,
+.signup-text a {
+    color: #d77b2b;
+    text-decoration: underline;
+    font-size: 13px;
+}
+
+/* Error Messages */
+.error {
+    display: block;
+    color: #c0392b;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.invalid {
+    border-color: #c0392b !important;
+}
+
+#feedback {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+#feedback.success {
+    color: #23753b;
+}
+
+#feedback.error-message {
+    color: #c0392b;
+}
+
+/* Login Button */
+.login-button {
+    width: 100%;
+    height: 49px;
+    border: none;
+    border-radius: 28px;
+    background: #ffbb72;
+    color: #17130f;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.login-button:hover {
+    background: #f6a64e;
+    transform: translateY(-1px);
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin: 22px 0 17px;
+}
+
+.divider span {
+    height: 1px;
+    background: #dfcbb5;
+    flex: 1;
+}
+
+.divider p {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Create Account */
+.create-account {
+    width: 100%;
+    min-height: 49px;
+    border: 1.5px solid #f0a04d;
+    border-radius: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #17130f;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.create-account:hover {
+    background: rgba(255, 187, 114, 0.25);
+}
+
+/* Sign Up Text */
+.signup-text {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 25px;
+}
+
+/* Footer */
+.footer {
+    min-height: 90px;
+    background: #ffbf7c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 5.7%;
+}
+
+.footer-brand h2 {
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.footer-brand p {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+}
+
+.copyright {
+    font-size: 11px;
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 15px;
+    }
+
+    .brand {
+        font-size: 23px;
+    }
+
+    .navbar nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    .navbar nav a {
+        font-size: 13px;
+    }
+
+    .main-container {
+        padding: 22px 12px;
+    }
+
+    .login-card {
+        padding: 24px 19px;
+    }
+
+    .login-card h1 {
+        font-size: 35px;
+    }
+
+    .login-card h2 {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .form-group input {
+        height: 44px;
+    }
+
+    .login-options {
+        align-items: flex-start;
+    }
+
+    .remember,
+    .forgot-link {
+        font-size: 12px;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 20px;
+        gap: 12px;
+    }
+
+    .copyright {
+        font-size: 10px;
+    }
+}

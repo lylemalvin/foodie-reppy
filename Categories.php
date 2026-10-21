@@ -1,0 +1,317 @@
+
+<?php
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Foodie Reppy - Categories</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="./categoriespage/style.css">
+</head>
+
+<body>
+
+<header class="main-header">
+
+    <div class="header-title">
+        <h2>Welcome To Foodie Reppy</h2>
+    </div>
+
+    <nav class="header-buttons">
+        <a href="Index.php">
+            <button class="pill-btn categories" type="button">Home</button>
+        </a>
+
+        <a href="About.php">
+            <button class="pill-btn about" type="button">About</button>
+        </a>
+
+        <a href="FAQ.php">
+            <button class="pill-btn faq" type="button">FAQ</button>
+        </a>
+    </nav>
+
+</header>
+
+<div class="app-container">
+
+    <main class="main-wrapper">
+        <h1 class="section-title">
+            <span>Category</span>
+        </h1>
+
+        <!-- CATEGORY NAVIGATION -->
+        <div class="categories-bar">
+
+            <button class="nav-arrow"
+                    id="prev-tab"
+                    type="button"
+                    aria-label="Previous categories">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div class="tabs-container" id="tabs-container">
+
+                <button class="tab-item active"
+                        data-category="filipino"
+                        type="button">
+                    <span class="tab-emoji">🍴</span>
+                    Filipino Cuisine
+                </button>
+
+                <button class="tab-item"
+                        data-category="japanese"
+                        type="button">
+                    <span class="tab-emoji">🍣</span>
+                    Japanese Cuisine
+                </button>
+
+                <button class="tab-item"
+                        data-category="italian"
+                        type="button">
+                    <span class="tab-emoji">🍕</span>
+                    Italian Cuisine
+                </button>
+
+                <button class="tab-item"
+                        data-category="chinese"
+                        type="button">
+                    <span class="tab-emoji">🍲</span>
+                    Chinese Cuisine
+                </button>
+
+                <button class="tab-item"
+                        data-category="mexican"
+                        type="button">
+                    <span class="tab-emoji">🌮</span>
+                    Mexican Cuisine
+                </button>
+
+                <button class="tab-item"
+                        data-category="indian"
+                        type="button">
+                    <span class="tab-emoji">🍛</span>
+                    Indian Cuisine
+                </button>
+
+                <button class="tab-item"
+                        data-category="american"
+                        type="button">
+                    <span class="tab-emoji">🍔</span>
+                    American Cuisine
+                </button>
+
+            </div>
+
+            <button class="nav-arrow"
+                    id="next-tab"
+                    type="button"
+                    aria-label="Next categories">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+        </div>
+
+        <!-- MAIN DASHBOARD -->
+        <div class="dashboard-panel">
+
+            <!-- LEFT PANEL: RECIPE LIST -->
+            <section class="content-card recipes-panel">
+
+                <div class="panel-heading">
+
+                    <div class="heading-left">
+                        <span class="heading-icon">
+                            <i class="fa-solid fa-utensils"></i>
+                        </span>
+
+                        <h2>Recipes</h2>
+                    </div>
+
+                    <span class="recipe-count" id="recipe-count">
+                        8 recipes
+                    </span>
+
+                </div>
+
+                <ul class="items-list" id="recipe-list"></ul>
+
+            </section>
+
+            <!-- RIGHT PANEL: SELECTED RECIPE -->
+            <section class="content-card recipe-detail-panel">
+
+                <!-- RECIPE IMAGE -->
+                <div class="recipe-hero">
+
+                    <img id="recipe-image"
+                         src=""
+                         alt="Selected recipe">
+
+                    <span class="cuisine-badge" id="recipe-category">
+                        <i class="fa-solid fa-utensils"></i>
+                        Filipino Cuisine
+                    </span>
+
+                    <div class="image-actions">
+
+                        <button class="round-action"
+                                id="favorite-btn"
+                                type="button"
+                                aria-label="Add to favorites">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+
+                        <button class="round-action"
+                                id="bookmark-btn"
+                                type="button"
+                                aria-label="Bookmark recipe">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- RECIPE INFORMATION -->
+                <div class="recipe-information">
+
+                    <h2 id="recipe-title">Adobo</h2>
+
+                    <div class="recipe-info">
+
+                        <span>
+                            <i class="fa-regular fa-clock"></i>
+                            <span id="recipe-time">45 mins</span>
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-utensils"></i>
+                            <span id="recipe-servings">4 servings</span>
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-fire-burner"></i>
+                            <span id="recipe-difficulty">Easy</span>
+                        </span>
+
+                    </div>
+
+                    <p class="recipe-description"
+                       id="recipe-description"></p>
+
+                    <!-- INGREDIENTS -->
+                    <div class="ingredients-card">
+
+                        <h3>Ingredients</h3>
+
+                        <ul class="ingredient-list" id="ingredients"></ul>
+
+                    </div>
+
+                </div>
+                <!-- END RECIPE INFORMATION -->
+
+                <!-- ACTION BUTTONS: OUTSIDE RECIPE INFORMATION -->
+                <div class="detail-actions">
+
+                    <button class="full-recipe-btn"
+                            id="full-recipe-btn"
+                            type="button">
+
+                        <i class="fa-solid fa-utensils"></i>
+
+                        <span>View Full Recipe</span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                    <div class="vertical-divider"></div>
+
+                    <div class="secondary-actions">
+
+                        <button class="outline-btn"
+                                id="print-btn"
+                                type="button">
+
+                            <i class="fa-solid fa-print"></i>
+                            Print
+
+                        </button>
+
+                        <button class="outline-btn"
+                                id="share-btn"
+                                type="button">
+
+                            <i class="fa-solid fa-share-nodes"></i>
+                            Share
+
+                        </button>
+
+                    </div>
+
+                </div>
+                <!-- END ACTION BUTTONS -->
+
+            </section>
+            <!-- END RECIPE DETAIL PANEL -->
+
+        </div>
+        <!-- END DASHBOARD -->
+
+    </main>
+
+</div>
+
+<!-- FULL RECIPE MODAL -->
+<div class="modal-overlay"
+     id="recipe-modal"
+     aria-hidden="true">
+
+    <div class="modal-card"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="modal-title">
+
+        <button class="modal-close"
+                id="close-modal"
+                type="button"
+                aria-label="Close">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+        <h2 id="modal-title">Adobo</h2>
+
+        <p id="modal-description"></p>
+
+        <h3>Ingredients</h3>
+
+        <ul id="modal-ingredients"></ul>
+
+        <p class="modal-note">
+            Browse the ingredients for your selected recipe.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- EXISTING JAVASCRIPT -->
+<script src="./categoriespage/script.js"></script>
+
+</body>
+</html>

@@ -1,3 +1,7 @@
+import { auth } from "../firebase/firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getSavedRecipes, toggleSavedRecipe as updateSavedRecipe } from "../firebase/saved-recipes.js";
+
 
 const recipesByCuisine = {
     filipino: [
@@ -486,6 +490,62 @@ let currentRecipeIndex = 0;
 
 const favoriteRecipes = new Set();
 const bookmarkedRecipes = new Set();
+let savedRecipesLoaded = false;
+let currentUserLoggedIn = false;
+
+function makeRecipeKey(category, name) {
+    return category + "-" + name;
+}
+
+async function loadSavedRecipes() {
+    try {
+        await new Promise(resolve => {
+            const unsubscribe = onAuthStateChanged(auth, async user => {
+                currentUserLoggedIn = Boolean(user);
+                unsubscribe();
+                try {
+                    const data = await getSavedRecipes();
+                    favoriteRecipes.clear();
+                    bookmarkedRecipes.clear();
+                    (data.favorites || []).forEach(recipe => favoriteRecipes.add(makeRecipeKey(recipe.category, recipe.name)));
+                    (data.bookmarks || []).forEach(recipe => bookmarkedRecipes.add(makeRecipeKey(recipe.category, recipe.name)));
+                } catch (error) {
+                    console.error("Could not load saved recipes:", error);
+                }
+                resolve();
+            });
+        });
+    } finally {
+        savedRecipesLoaded = true;
+        updateActionButtons();
+    }
+}
+
+async function toggleSavedRecipe(type, recipe) {
+    if (!recipe) return;
+
+    if (!currentUserLoggedIn) {
+        alert("Please log in to save your recipes.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const key = makeRecipeKey(currentCategory, recipe.name);
+    const collection = type === "favorites" ? favoriteRecipes : bookmarkedRecipes;
+    const button = document.getElementById(type === "favorites" ? "favorite-btn" : "bookmark-btn");
+    button.disabled = true;
+
+    try {
+        const saved = await updateSavedRecipe(type, currentCategory, recipe.name);
+        if (saved) collection.add(key);
+        else collection.delete(key);
+        updateActionButtons();
+    } catch (error) {
+        alert(error.message || "Unable to save this recipe. Please try again.");
+    } finally {
+        button.disabled = false;
+    }
+}
 
 function getCurrentRecipe() {
     const recipes = recipesByCuisine[currentCategory] || [];
@@ -680,37 +740,13 @@ document.getElementById("next-tab").addEventListener("click", function () {
 /* FAVORITES */
 
 document.getElementById("favorite-btn").addEventListener("click", function () {
-    const recipe = getCurrentRecipe();
-
-    if (!recipe) return;
-
-    const key = currentCategory + "-" + recipe.name;
-
-    if (favoriteRecipes.has(key)) {
-        favoriteRecipes.delete(key);
-    } else {
-        favoriteRecipes.add(key);
-    }
-
-    updateActionButtons();
+    toggleSavedRecipe("favorites", getCurrentRecipe());
 });
 
 /* BOOKMARKS */
 
 document.getElementById("bookmark-btn").addEventListener("click", function () {
-    const recipe = getCurrentRecipe();
-
-    if (!recipe) return;
-
-    const key = currentCategory + "-" + recipe.name;
-
-    if (bookmarkedRecipes.has(key)) {
-        bookmarkedRecipes.delete(key);
-    } else {
-        bookmarkedRecipes.add(key);
-    }
-
-    updateActionButtons();
+    toggleSavedRecipe("bookmarks", getCurrentRecipe());
 });
 
 /* FULL RECIPE MODAL */
@@ -802,5 +838,16 @@ document.getElementById("share-btn").addEventListener("click", async function ()
 
 /* INITIAL DISPLAY */
 
-renderRecipeList();
-renderRecipeDetails();
+
+const requestedCategory = (
+    new URLSearchParams(window.location.search).get("type") || ""
+).toLowerCase();
+
+if (recipesByCuisine[requestedCategory]) {
+    selectCategory(requestedCategory);
+} else {
+    renderRecipeList();
+    renderRecipeDetails();
+}
+
+loadSavedRecipes();

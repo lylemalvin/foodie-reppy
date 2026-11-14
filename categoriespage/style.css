@@ -10,8 +10,8 @@
 :root {
     --cream: #fff8eb;
     --cream-dark: #fff0d8;
-    --terracotta: #e9431b;
-    --terracotta-dark: #cc3214;
+    --terracotta: #e8650f;
+    --terracotta-dark: #c24f08;
     --orange-light: #ffe4c5;
     --border: #f4d3b0;
     --text: #392019;
@@ -28,6 +28,8 @@ body {
     margin: 0;
     min-height: 100vh;
     padding-top: 70px;
+    display: flex;
+    flex-direction: column;
     font-family: 'Nunito', sans-serif;
     color: var(--text);
     background-color: var(--cream);
@@ -67,9 +69,12 @@ body {
 
 .header-title h2 {
     margin: 0;
-    font-size: 29px;
-    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
     color: #522b1b;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
 .header-buttons {
@@ -108,8 +113,8 @@ body {
 .app-container {
     width: 100%;
     max-width: none;
-    min-height: calc(100vh - 70px);
-    padding: 28px 3% 45px;
+    flex: 1 0 auto;
+    padding: 28px 3% 60px;
     box-sizing: border-box;
 }
 
@@ -141,7 +146,7 @@ body {
 }
 
 .title-decoration {
-    color: #d94a25;
+    color: var(--terracotta);
     font-size: 32px;
     line-height: 1;
 }
@@ -209,7 +214,7 @@ body {
     padding: 9px 15px;
     border: 1px solid #f3d1ae;
     border-radius: 30px;
-    background: #fff1dc;
+    background: #ffe4c5;
     color: #4d2a1b;
     font-family: 'Nunito', sans-serif;
     font-size: 13px;
@@ -333,7 +338,7 @@ body {
 
 .recipe-item.active {
     border: 1.5px solid var(--terracotta);
-    background: #ffe8d2;
+    background: #ffe4c5;
 }
 
 .recipe-item img {
@@ -949,5 +954,115 @@ body {
     .full-recipe-btn {
         padding: 11px 14px;
         font-size: 12px;
+    }
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+    width: 100%;
+
+    margin: auto 0 0;
+    padding: 18px 8%;
+
+    background-color: #ffc583;
+
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.12);
+
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    max-width: 1600px;
+
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.footer-brand {
+    flex-shrink: 0;
+}
+
+.footer-brand h2 {
+    margin: 0;
+
+    font-family: 'Caveat', cursive;
+    font-size: 36px;
+    font-weight: 700;
+
+    color: #522b1b;
+}
+
+.footer-brand p {
+    margin: 4px 0 0;
+
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+
+    color: #1a2a52;
+}
+
+.footer-bottom {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    text-align: right;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+
+    color: #392019;
+}
+
+@media (max-width: 1000px) {
+    .footer {
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 18px 15px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer-brand h2 {
+        font-size: 32px;
+    }
+
+    .footer-brand p {
+        font-size: 12px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+    }
+
+    .footer-bottom p {
+        font-size: 12px;
+        line-height: 1.5;
     }
 }

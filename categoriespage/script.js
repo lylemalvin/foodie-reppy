@@ -810,7 +810,7 @@ document.getElementById("share-btn").addEventListener("click", async function ()
     if (!recipe) return;
 
     const shareData = {
-        title: recipe.name + " - Foodie Reppy",
+        title: recipe.name + " - Flavorly",
         text: recipe.description
     };
 
@@ -845,6 +845,17 @@ const requestedCategory = (
 
 if (recipesByCuisine[requestedCategory]) {
     selectCategory(requestedCategory);
+
+    const requestedRecipe = (
+        new URLSearchParams(window.location.search).get("recipe") || ""
+    ).toLowerCase();
+    const requestedIndex = recipesByCuisine[requestedCategory].findIndex(function (recipe) {
+        return recipe.name.toLowerCase() === requestedRecipe;
+    });
+
+    if (requestedIndex > 0) {
+        selectRecipe(requestedIndex);
+    }
 } else {
     renderRecipeList();
     renderRecipeDetails();

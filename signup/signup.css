@@ -1,6 +1,5 @@
-
 /* =================================
-   FOODIE REPPY SIGN UP PAGE
+   FLAVORLY SIGN UP PAGE
 ================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;500;600;700;800;900&family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
@@ -164,7 +163,7 @@ a {
     margin-bottom: 30px;
 }
 
-/* FOODIE REPPY TITLE
+/* FLAVORLY TITLE
    MATCHES LOGIN PAGE
 ================================= */
 
@@ -444,9 +443,9 @@ a {
 }
 
 .footer-brand .brand {
-    font-family: "Caveat", cursive;
+    font-family: "Pacifico", cursive;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 400;
     color: #522b1b;
 }
 

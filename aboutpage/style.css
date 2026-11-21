@@ -1,9 +1,8 @@
-
 /* ========================================
-   FOODIE REPPY - ABOUT PAGE CSS
+   FLAVORLY - ABOUT PAGE CSS
 ======================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@700&family=Pacifico&display=swap');
 
 /* ========================================
    GLOBAL STYLES
@@ -95,9 +94,9 @@ body {
 .header-title h2 {
     margin: 0;
 
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Pacifico', cursive;
     font-size: 32px;
-    font-weight: 900;
+    font-weight: 400;
 
     color: #522b1b;
 
@@ -543,9 +542,9 @@ body {
 .footer-brand h2 {
     margin: 0;
 
-    font-family: 'Caveat', cursive;
+    font-family: 'Pacifico', cursive;
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 400;
 
     color: #522b1b;
 }

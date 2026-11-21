@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@700&family=Pacifico&display=swap');
 
 :root {
     --cream: #fff8eb;
@@ -72,9 +71,9 @@ body {
 
 .header-title h2 {
     margin: 0;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Pacifico', cursive;
     font-size: 32px;
-    font-weight: 900;
+    font-weight: 400;
     color: #522b1b;
     line-height: 1.2;
     white-space: nowrap;
@@ -118,10 +117,7 @@ body {
 .recipe-title h1 {
     margin: 0;
     padding: 0;
-    font-family:
-        'Brush Script MT',
-        'Segoe Script',
-        cursive;
+    font-family: 'Pacifico', cursive;
     font-size: 72px;
     font-weight: normal;
     line-height: 1.5;
@@ -406,9 +402,9 @@ body {
 
 .footer-brand h2 {
     margin: 0;
-    font-family: 'Caveat', cursive;
+    font-family: 'Pacifico', cursive;
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 400;
     color: #522b1b;
 }
 
@@ -682,16 +678,6 @@ body {
     }
 }
 
-.user-greeting {
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    color: #542d1b;
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-}
-
 .firebase-auth-nav {
     display: flex;
     align-items: center;
@@ -781,12 +767,6 @@ body {
         gap: 10px;
     }
 
-    .user-greeting {
-        justify-content: center;
-        white-space: normal;
-        text-align: center;
-        padding: 5px;
-    }
 }
 
 @media (max-width: 350px) {

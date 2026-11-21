@@ -63,7 +63,9 @@
             <img src="https://img.icons8.com/?size=100&id=112468&format=png&color=000000" class="searchIconImg">
         </div>
 
-        <input class="search" type="search" placeholder="Search...">
+        <input class="search" id="searchInput" type="search" placeholder="Search recipes, cuisines, or ingredients..." autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search recipes">
+
+        <div class="search-results" id="searchResults" role="listbox" hidden></div>
 
     </div>
 
@@ -174,6 +176,7 @@
 
 <script src="./homepage/script.js"></script>
 <script type="module" src="./firebase/auth-ui.js"></script>
+<script type="module" src="./homepage/search.js"></script>
 
 <script>
     document.querySelectorAll(".current-year").forEach(el => {

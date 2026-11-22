@@ -20,19 +20,6 @@ document.querySelectorAll("[data-toggle]").forEach(button => {
     });
 });
 
-<<<<<<< HEAD
-=======
-const menuToggle = document.getElementById("menuToggle");
-const mainNav = document.querySelector(".main-nav");
-
-if (menuToggle && mainNav) {
-    menuToggle.addEventListener("click", () => {
-        const isOpen = mainNav.classList.toggle("open");
-        menuToggle.setAttribute("aria-expanded", isOpen);
-    });
-}
-
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
 function setError(id, message) {
     const element = document.getElementById(id);
     if (element) element.textContent = message;

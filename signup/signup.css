@@ -83,25 +83,17 @@ a {
 
 /* NAVIGATION */
 
-<<<<<<< HEAD
 .header-buttons {
-=======
-.main-nav {
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-<<<<<<< HEAD
 .header-buttons a {
     text-decoration: none;
 }
 
 .pill-btn {
-=======
-.main-nav a {
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
     padding: 9px 20px;
     border: 1px solid rgba(119, 59, 25, 0.20);
     border-radius: 25px;
@@ -113,37 +105,16 @@ a {
     font-size: 13px;
     font-weight: 800;
 
-<<<<<<< HEAD
     cursor: pointer;
     transition: 0.2s ease;
 }
 
 .pill-btn:hover {
-=======
-    transition: 0.2s ease;
-}
-
-.main-nav a:hover {
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
     background-color: #e9431b;
     color: white;
     transform: translateY(-1px);
 }
 
-<<<<<<< HEAD
-=======
-/* MOBILE MENU BUTTON */
-
-.menu-toggle {
-    display: none;
-    background: transparent;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
-    color: #542d1b;
-}
-
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
 /* =================================
    MAIN CONTENT / SCROLLING SPACE
 ================================= */
@@ -497,41 +468,6 @@ a {
         font-size: 29px;
     }
 
-<<<<<<< HEAD
-=======
-    .menu-toggle {
-        display: block;
-    }
-
-    .main-nav {
-        display: none;
-
-        position: absolute;
-
-        top: 100%;
-        left: 0;
-        right: 0;
-
-        padding: 15px 20px;
-
-        background: var(--apricot);
-
-        box-shadow: 0 5px 8px rgba(90, 55, 20, 0.12);
-
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-
-    .main-nav.open {
-        display: flex;
-    }
-
-    .main-nav a {
-        text-align: center;
-    }
-
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
     .page-main {
         padding: 45px 14px 75px;
     }
@@ -638,7 +574,6 @@ a {
     background-color: #fdecea;
     border-color: #f0b3a9;
     color: #a52f1b;
-<<<<<<< HEAD
 }
 
 /* ========================================
@@ -748,6 +683,3 @@ a {
         gap: 10px;
     }
 }
-=======
-}
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f

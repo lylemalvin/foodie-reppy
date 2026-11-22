@@ -760,11 +760,7 @@ body {
         text-align: center;
     }
 
-<<<<<<< HEAD
     .header-buttons .firebase-auth-nav {
-=======
-    .firebase-auth-nav {
->>>>>>> 4f7a15d8d88f2f5c51655ada76b4642cf4b3007f
         display: flex;
         flex-direction: column;
         align-items: stretch;

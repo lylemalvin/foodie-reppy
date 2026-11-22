@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavorly | Log In</title>
+
+    <link rel="stylesheet" href="./login/frontend.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600;700;800&family=Pacifico&family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="main-header">
+        <div class="header-title" style="display:flex;align-items:center;">
+        <a href="index.html" class="nav-logo-link" style="display:block;flex:0 0 auto;width:clamp(44px,7vw,58px);height:clamp(44px,7vw,58px);margin-right:10px;border-radius:50%;overflow:hidden;text-decoration:none;"><img class="nav-logo" src="images/Flavorly_Logo.png" alt="Flavorly logo" style="display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.7);"></a>
+            <h2 style="font-family:'Pacifico',cursive;font-weight:400;">Flavorly</h2>
+        </div>
+
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+
+    <nav class="header-buttons" id="headerButtons" aria-label="Main navigation">
+            <a href="index.html"><button class="pill-btn home" type="button">Home</button></a>
+            <a href="categories.html"><button class="pill-btn categories" type="button">Categories</button></a>
+            <a href="about.html"><button class="pill-btn about" type="button">About</button></a>
+            <a href="faq.html"><button class="pill-btn faq" type="button">FAQ</button></a>
+            <div class="firebase-auth-nav" id="authNav">
+                <a href="login.html"><button class="pill-btn faq" type="button">Log In</button></a>
+                <a href="signup.html"><button class="pill-btn signup" type="button">Sign Up</button></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Section -->
+    <main class="main-container">
+        <section class="login-card">
+
+            <h1>Flavorly</h1>
+            <div class="title-underline"></div>
+
+            <h2>Log in to your account</h2>
+
+            <form id="loginForm" action="login.html" method="post">
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+                    <small class="error" id="emailError"></small>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <div class="password-box">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                            aria-label="Show password"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <small class="error" id="passwordError"></small>
+                </div>
+
+                <!-- Remember Me and Forgot Password -->
+                <div class="login-options">
+                    <label class="remember">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+
+                    <a href="#" id="forgotPassword" class="forgot-link">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <p id="feedback" role="status" aria-live="polite"></p>
+
+                <!-- Login Button -->
+                <button type="submit" class="login-button">
+                    Log In
+                </button>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span></span>
+                    <p>or continue with</p>
+                    <span></span>
+                </div>
+
+                <!-- Create Account Button -->
+                <a href="signup.html" class="create-account">
+                    Create an Account
+                </a>
+
+                <!-- Sign Up Link -->
+                <p class="signup-text">
+                    New to Flavorly?
+                    <a href="signup.html">Sign up</a>
+                </p>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">
+            <h2>Flavorly</h2>
+            <p>Discover. Cook. Enjoy.</p>
+        </div>
+
+        <p class="copyright">
+            &copy; <span id="year"></span> Flavorly. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script type="module" src="./login/frontend.js"></script>
+<script type="module" src="./firebase/auth-ui.js"></script>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const headerButtons = document.getElementById('headerButtons');
+
+if (menuToggle && headerButtons) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = headerButtons.classList.toggle('active');
+
+        menuToggle.textContent = isOpen ? '✕' : '☰';
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute(
+            'aria-label',
+            isOpen ? 'Close navigation menu' : 'Open navigation menu'
+        );
+    });
+
+    headerButtons.addEventListener('click', event => {
+        if (event.target.closest('a')) {
+            headerButtons.classList.remove('active');
+            menuToggle.textContent = '☰';
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+    });
+
+    document.addEventListener('click', event => {
+        if (
+            !headerButtons.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            headerButtons.classList.remove('active');
+            menuToggle.textContent = '☰';
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 600) {
+            headerButtons.classList.remove('active');
+            menuToggle.textContent = '☰';
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<?php
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Food Recipe's</title>
+    <style>
+        <?php include './aboutpage/style.css'; ?>
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-title">
+            <h2>Welcome To Foodie Reppy</h2>
+        </div>
+
+     <div class="header-buttons">
+
+        <a href="Index.php">
+            <button class="pill-btn categories">Home</button>
+        </a>
+        <a href="Categories.php">
+            <button class="pill-btn categories">Categories</button>
+        </a>
+        <a href="FAQ.php">
+            <button class="pill-btn faq">FAQ</button>
+        </a>
+    </div>
+    </header>
+
+    <div class="banner">
+        <img src="images/header.png" alt="Food">
+        <h1>About Foodie Reppy</h1>
+         <p>is a recipe website designed to help users discover and explore different dishes from various cuisines.</p>
+    </div>
+
+<main class="content">
+
+    <div class="content-grid">
+
+        <section class="content-section">
+            <h2>Our Purpose</h2>
+            <p>
+                Our purpose is to make finding recipes easier and more convenient. Users can browse different cuisines, explore recipes, and learn about the ingredients used in each dish.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>What You Can Find</h2>
+            <p>
+                Foodie Reppy provides recipe descriptions, ingredient lists, and ingredient images to help users better understand the dishes they want to explore.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>Available Cuisines</h2>
+            <p>
+                Users can explore recipes from Filipino, Japanese, Italian, Chinese, Mexican, Indian, and American cuisines.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>Our Goal</h2>
+            <p>
+                Our goal is to provide a simple and user-friendly website where people can easily discover recipes and find inspiration for their meals.
+            </p>
+        </section>
+
+    </div>
+
+    <section class="full-section">
+        <h2>Future Plans</h2>
+        <p>
+            More recipes and ingredients will be added in the future to make Foodie Reppy more useful and enjoyable for everyone.
+        </p>
+    </section>
+
+</main>
+</body>
+</html>

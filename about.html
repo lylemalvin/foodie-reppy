@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Flavorly</title>
+    <link rel="stylesheet" href="./aboutpage/style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-title">
+        <a href="index.html" class="nav-logo-link" style="display:block;flex:0 0 auto;width:clamp(44px,7vw,58px);height:clamp(44px,7vw,58px);margin-right:10px;border-radius:50%;overflow:hidden;text-decoration:none;"><img class="nav-logo" src="images/Flavorly_Logo.png" alt="Flavorly logo" style="display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.7);"></a>
+            <h2>Flavorly</h2>
+        </div>
+
+         <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+
+    <div class="header-buttons" id="headerButtons">
+
+        <a href="index.html">
+            <button class="pill-btn categories">Home</button>
+        </a>
+        <a href="categories.html">
+            <button class="pill-btn categories">Categories</button>
+        </a>
+        <a href="faq.html">
+            <button class="pill-btn faq">FAQ</button>
+        </a>
+
+         <div class="firebase-auth-nav" id="authNav">
+                <a href="login.html"><button class="pill-btn faq" type="button">Log In</button></a>
+                <a href="signup.html"><button class="pill-btn signup" type="button">Sign Up</button></a>
+            </div>
+         
+    </div>
+    </header>
+
+    <div class="banner">
+        <img src="images/header.png" alt="Food">
+        <h1>About Flavorly</h1>
+         <p>is a recipe website designed to help users discover and explore different dishes from various cuisines.</p>
+    </div>
+
+<main class="content">
+
+    <div class="content-grid">
+
+        <section class="content-section">
+            <h2>Our Purpose</h2>
+            <p>
+                Our purpose is to make finding recipes easier and more convenient. Users can browse different cuisines, explore recipes, and learn about the ingredients used in each dish.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>What You Can Find</h2>
+            <p>
+                Flavorly provides recipe descriptions, ingredient lists, and ingredient images to help users better understand the dishes they want to explore.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>Available Cuisines</h2>
+            <p>
+                Users can explore recipes from Filipino, Japanese, Italian, Chinese, Mexican, Indian, and American cuisines.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>Our Goal</h2>
+            <p>
+                Our goal is to provide a simple and user-friendly website where people can easily discover recipes and find inspiration for their meals.
+            </p>
+        </section>
+
+    </div>
+
+    <section class="full-section">
+        <h2>Future Plans</h2>
+        <p>
+            More recipes and ingredients will be added in the future to make Flavorly more useful and enjoyable for everyone.
+        </p>
+    </section>
+
+</main>
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+
+            <h2>Flavorly</h2>
+
+            <p>Discover. Cook. Enjoy.</p>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>&copy; <span class="current-year"></span> Flavorly. All Rights Reserved.</p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script type="module" src="./firebase/auth-ui.js"></script>
+<script>document.querySelectorAll(".current-year").forEach(el => el.textContent = new Date().getFullYear());</script>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const headerButtons = document.getElementById('headerButtons');
+
+if (menuToggle && headerButtons) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = headerButtons.classList.toggle('active');
+
+        menuToggle.textContent = isOpen ? '✕' : '☰';
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute(
+            'aria-label',
+            isOpen ? 'Close navigation menu' : 'Open navigation menu'
+        );
+    });
+
+    headerButtons.addEventListener('click', event => {
+        if (event.target.closest('a')) {
+            headerButtons.classList.remove('active');
+            menuToggle.textContent = '☰';
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+    });
+
+    document.addEventListener('click', event => {
+        if (
+            !headerButtons.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            headerButtons.classList.remove('active');
+            menuToggle.textContent = '☰';
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 600) {
+            headerButtons.classList.remove('active');
+            menuToggle.textContent = '☰';
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+    });
+}
+</script>
+</body>
+</html>

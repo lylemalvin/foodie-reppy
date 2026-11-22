@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Reppy | Log In</title>
+
+    <link rel="stylesheet" href="login/login.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <a href="index.php" class="brand">Foodie Reppy</a>
+
+        <nav>
+            <a href="index.php">Home</a>
+            <a href="Categories.php">Categories</a>
+            <a href="About.php">About</a>
+            <a href="FAQ.php">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- Login Section -->
+    <main class="main-container">
+        <section class="login-card">
+
+            <h1>Foodie Reppy</h1>
+            <div class="title-underline"></div>
+
+            <h2>Log in to your account</h2>
+
+            <form id="loginForm" action="#" method="post">
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+                    <small class="error" id="emailError"></small>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <div class="password-box">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                            aria-label="Show password"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <small class="error" id="passwordError"></small>
+                </div>
+
+                <!-- Remember Me and Forgot Password -->
+                <div class="login-options">
+                    <label class="remember">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+
+                    <a href="forgot-password.php" class="forgot-link">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <p id="feedback" role="status" aria-live="polite"></p>
+
+                <!-- Login Button -->
+                <button type="submit" class="login-button">
+                    Log In
+                </button>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span></span>
+                    <p>or continue with</p>
+                    <span></span>
+                </div>
+
+                <!-- Create Account Button -->
+                <a href="signup.php" class="create-account">
+                    Create an Account
+                </a>
+
+                <!-- Sign Up Link -->
+                <p class="signup-text">
+                    New to Foodie Reppy?
+                    <a href="signup.php">Sign up</a>
+                </p>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">
+            <h2>Foodie Reppy</h2>
+            <p>Discover. Cook. Enjoy.</p>
+        </div>
+
+        <p class="copyright">
+            &copy; <span id="year"></span> Foodie Reppy. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script src="login/login.js"></script>
+</body>
+</html>

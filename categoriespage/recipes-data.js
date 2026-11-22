@@ -3,10 +3,13 @@
 //
 // Each recipe has: name, image, description, servings, time, difficulty,
 // prep and cook (times), ingredients ([emoji, "Ingredient (amount)"]), steps (detailed instructions),
-// tips (chef's tips) and storage (storing and reheating).
+// tips (chef's tips), storage (storing and reheating), serve (serving idea), equipment, subs (substitutions)
+// and allergens (worked out from the ingredient list - always check product labels).
 //
 // Recipes without a photo use ph(...) to draw a colored placeholder card.
-// To use a real photo, replace the image value with a URL or a path such as "images/recipes/ramen.jpg".
+// A recipe with a "photo" path (for example images/recipes/ramen.jpg) shows that file when it exists
+// and quietly falls back to the placeholder when it does not.
+// Optional: add stepImages: ["images/recipes/ramen/step-1.jpg", ...] to show your own photo under a step.
 
 const palette = {
     filipino: ["#f6c453", "#e9431b"],
@@ -35,7 +38,7 @@ export const recipesByCuisine = {
     filipino: [
         {
             name: "Adobo",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://www.nestlegoodnes.com/ph/sites/default/files/styles/1_1_768px_width/public/srh_recipes/ee068cc27a9477cc3f97ae6a36ab252c.jpg.webp?itok=hXcJv9Ud",
             description: "A popular Filipino dish made with meat marinated and cooked in soy sauce, vinegar, garlic, and spices. It's savory, tangy, and full of flavor, making it a household favorite in the Philippines.",
             servings: "4 servings",
             time: "50 mins",
@@ -69,11 +72,15 @@ export const recipesByCuisine = {
                 "Cane vinegar (sukang maasim) gives the most authentic taste, but white vinegar works well too.",
                 "For a creamy version (adobo sa gata), stir in 1/2 cup of coconut milk during the final reduction."
             ],
-            storage: "Keeps 5 days in an airtight container in the refrigerator, or 2 months in the freezer. Reheat gently with a splash of water."
+            storage: "Keeps 5 days in an airtight container in the refrigerator, or 2 months in the freezer. Reheat gently with a splash of water.",
+            serve: "Steamed rice, a fried egg and atchara (pickled green papaya).",
+            equipment: ["Heavy-bottomed pot with lid", "Chef's knife and cutting board", "Tongs"],
+            subs: ["Chicken → pork belly or firm tofu", "White vinegar → cane or apple cider vinegar"],
+            allergens: ["Gluten (wheat)", "Soy"]
         },
         {
             name: "Sinigang",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://images.getrecipekit.com/20260121050152-gemini_generated_image_4wfiko4wfiko4wfi.png?width=480&quality=90",
             description: "A comforting Filipino sour soup traditionally prepared with tamarind, vegetables, and pork or seafood. It is loved for its refreshing and savory broth.",
             servings: "4 servings",
             time: "1 hr 15 mins",
@@ -106,11 +113,15 @@ export const recipesByCuisine = {
                 "Add vegetables in order of cooking time so nothing turns mushy.",
                 "Swap the pork for shrimp (cook only 3–5 minutes) or salmon belly for a quicker version."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat gently and add fresh kangkong to revive the greens."
+            storage: "Keeps 3 days in the refrigerator. Reheat gently and add fresh kangkong to revive the greens.",
+            serve: "Steamed rice, with fish sauce and sliced chilies on the side.",
+            equipment: ["Large pot", "Ladle and skimmer", "Knife and cutting board"],
+            subs: ["Pork ribs → shrimp or salmon belly", "Tamarind mix → fresh tamarind or calamansi juice"],
+            allergens: ["Fish"]
         },
         {
             name: "Tinola",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://www.foxyfolksy.com/wp-content/uploads/2015/08/tinola-2-500x500.jpg",
             description: "A warm Filipino chicken soup with ginger, green papaya, and leafy vegetables. Its light, aromatic broth makes it a comforting family meal.",
             servings: "4 servings",
             time: "50 mins",
@@ -144,11 +155,15 @@ export const recipesByCuisine = {
                 "Do not boil the chili leaves for long, or they turn bitter and lose color.",
                 "A drop of calamansi juice at the table brightens the broth."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat gently over low heat so the papaya does not break down."
+            storage: "Keeps 3 days in the refrigerator. Reheat gently over low heat so the papaya does not break down.",
+            serve: "Hot steamed rice and a dip of fish sauce with calamansi.",
+            equipment: ["Pot with lid", "Vegetable peeler", "Ladle"],
+            subs: ["Green papaya → chayote", "Chili leaves → malunggay or spinach"],
+            allergens: ["Fish"]
         },
         {
             name: "Kare-Kare",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://www.foodandwine.com/thmb/ARMtMbXJII5Ss5Mlgfz0pkN_cnY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/beef-kare-kare-FT-RECIPE0225-08818464837d461cb33783c66bbf1682.jpeg",
             description: "A rich Filipino stew known for its thick peanut sauce, tender meat, and vegetables. It is traditionally served with bagoong for extra flavor.",
             servings: "4 servings",
             time: "2 hrs 30 mins",
@@ -183,11 +198,15 @@ export const recipesByCuisine = {
                 "For a deeper color, add a little annatto (atsuete) water to the sauce.",
                 "Make the beef a day ahead. It speeds up dinner and the flavor improves."
             ],
-            storage: "Keeps 4 days in the refrigerator. The sauce thickens as it cools, so loosen it with a little water when reheating."
+            storage: "Keeps 4 days in the refrigerator. The sauce thickens as it cools, so loosen it with a little water when reheating.",
+            serve: "Steamed rice with bagoong and calamansi.",
+            equipment: ["Large pot or pressure cooker", "Second pot for the sauce", "Wooden spoon"],
+            subs: ["Oxtail → beef shank or tripe", "Peanut butter → ground toasted peanuts"],
+            allergens: ["Dairy", "Peanuts", "Shellfish"]
         },
         {
             name: "Sisig",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://images.food52.com/aZ1xqntpYVztcU58Ucv-J9wXU4w=/7282b47e-bc72-4268-a69e-ef9bea123154--sisig-1.jpg?w=1920&q=75",
             description: "A flavorful Filipino dish commonly made with chopped pork, onions, calamansi, and seasonings. It is known for its savory taste and sizzling presentation.",
             servings: "3 servings",
             time: "1 hr 30 mins",
@@ -219,11 +238,15 @@ export const recipesByCuisine = {
                 "For a richer version, add 2 tablespoons of chicken liver spread (or mayonnaise) while tossing.",
                 "Sisig pairs well with cold drinks and plain steamed rice."
             ],
-            storage: "Best eaten fresh. Leftovers keep 2 days in the refrigerator; re-crisp in a hot pan, not the microwave."
+            storage: "Best eaten fresh. Leftovers keep 2 days in the refrigerator; re-crisp in a hot pan, not the microwave.",
+            serve: "Steamed rice, extra calamansi and a cold drink.",
+            equipment: ["Pot for boiling", "Grill or heavy skillet", "Cleaver or sharp knife"],
+            subs: ["Pork belly → chicken thigh or tofu", "Chilies → red pepper flakes"],
+            allergens: ["Eggs"]
         },
         {
             name: "Pancit",
-            image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=85",
+            image: "https://www.ting.recipes/_next/image?url=https%3A%2F%2Fjeadtkwewcmenctbwrgp.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Frecipe-images%2F1531e55a-5e87-4f56-8bde-04841af09f21.webp&w=750&q=75",
             description: "A beloved Filipino noodle dish tossed with vegetables, savory seasonings, and meat. Pancit is a familiar centerpiece at family gatherings and celebrations.",
             servings: "4 servings",
             time: "35 mins",
@@ -257,11 +280,15 @@ export const recipesByCuisine = {
                 "Add a handful of sliced shrimp or Chinese sausage for a festive version.",
                 "Pancit is traditionally served at birthdays, as the long noodles symbolize long life."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat in a pan with a splash of water."
+            storage: "Keeps 3 days in the refrigerator. Reheat in a pan with a splash of water.",
+            serve: "Calamansi wedges, with steamed rice or pandesal.",
+            equipment: ["Large wok or skillet", "Bowl for soaking noodles", "Tongs"],
+            subs: ["Rice noodles → bihon or glass noodles", "Chicken → shrimp or tofu"],
+            allergens: ["Gluten (wheat)", "Soy"]
         },
         {
             name: "Chicken Inasal",
-            image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=700&q=85",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAnF2Zddt078C2xB6YsyKuF4VeWkUF4je5bhUm8p-vUqk4NvPmsqoYXouF&s=10",
             description: "A Filipino grilled chicken specialty marinated with lemongrass, citrus, garlic, and spices. Its smoky aroma and savory flavor make it a favorite.",
             servings: "4 servings",
             time: "1 hr (+ marinating)",
@@ -293,11 +320,15 @@ export const recipesByCuisine = {
                 "No grill? Roast at 220°C (425°F) for 35–40 minutes, then broil for 3 minutes for char.",
                 "Baste with annatto oil for the classic orange-gold color."
             ],
-            storage: "Keeps 4 days in the refrigerator. Reheat in a 180°C (350°F) oven for 15 minutes to keep the skin crisp."
+            storage: "Keeps 4 days in the refrigerator. Reheat in a 180°C (350°F) oven for 15 minutes to keep the skin crisp.",
+            serve: "Garlic rice, atchara, and a dip of soy sauce, calamansi and chili.",
+            equipment: ["Grill or oven", "Large mixing bowl", "Basting brush"],
+            subs: ["Lemongrass → lemon zest", "Calamansi → lime juice"],
+            allergens: []
         },
         {
             name: "Bulalo",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://www.iankewks.com/wp-content/uploads/2025/01/IMG_3767-500x500.jpg",
             description: "A hearty Filipino beef soup prepared with beef shank, bone marrow, corn, and vegetables. Its rich broth is especially comforting on rainy days.",
             servings: "4 servings",
             time: "3 hrs",
@@ -330,11 +361,15 @@ export const recipesByCuisine = {
                 "A pressure cooker cuts the cooking time to about 50 minutes.",
                 "Skimming and the first blanching are what make the broth crystal clear."
             ],
-            storage: "Keeps 4 days in the refrigerator. Skim off the solidified fat before reheating if you prefer a lighter broth."
+            storage: "Keeps 4 days in the refrigerator. Skim off the solidified fat before reheating if you prefer a lighter broth.",
+            serve: "Steamed rice with a fish sauce, calamansi and chili dip.",
+            equipment: ["Large stockpot", "Skimmer", "Ladle"],
+            subs: ["Beef shank → beef short ribs", "Pechay → bok choy or cabbage"],
+            allergens: ["Fish"]
         },
         {
             name: "Lumpia",
-            image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85",
+            image: "https://curiousflavors.com/wp-content/uploads/2022/01/Untitled-design-2023-11-21T135741.306.jpg",
             description: "Crispy Filipino spring rolls filled with a savory mixture of vegetables and meat. They are often served as appetizers with a dipping sauce.",
             servings: "4 servings",
             time: "45 mins",
@@ -367,11 +402,15 @@ export const recipesByCuisine = {
                 "Freeze uncooked rolls on a tray, then bag them. Fry straight from frozen, adding 1–2 minutes.",
                 "Use a thermometer if possible. Oil that is too cool makes greasy lumpia."
             ],
-            storage: "Cooked lumpia keep 3 days in the refrigerator. Re-crisp in a 190°C (375°F) oven or air fryer for 6–8 minutes."
+            storage: "Cooked lumpia keep 3 days in the refrigerator. Re-crisp in a 190°C (375°F) oven or air fryer for 6–8 minutes.",
+            serve: "Sweet chili sauce, banana ketchup or a vinegar-garlic dip.",
+            equipment: ["Large skillet", "Deep pan or wok", "Slotted spoon or spider"],
+            subs: ["Ground pork → ground chicken or turkey", "Lumpia wrappers → spring roll wrappers"],
+            allergens: ["Eggs", "Gluten (wheat)"]
         },
         {
             name: "Bicol Express",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDzrGZoUTt7Fb4Kn9wRt_vViraUKFEq01fc1L1U2a8WmLIBM4PxT5lVGED&s=10",
             description: "A spicy Filipino dish made with pork, coconut milk, and chili peppers. It combines creamy richness with a bold, spicy flavor.",
             servings: "4 servings",
             time: "1 hr",
@@ -402,7 +441,11 @@ export const recipesByCuisine = {
                 "Use siling labuyo for fiery heat or finger chilies for a milder version.",
                 "Add a handful of green beans or eggplant for a heartier version."
             ],
-            storage: "Keeps 4 days in the refrigerator. It tastes even better the next day. Reheat gently on low heat."
+            storage: "Keeps 4 days in the refrigerator. It tastes even better the next day. Reheat gently on low heat.",
+            serve: "Plenty of steamed rice and fresh cucumber to cool the heat.",
+            equipment: ["Wide pan or wok", "Wooden spoon", "Sharp knife"],
+            subs: ["Pork belly → pork shoulder", "Shrimp paste → 1 tbsp fish sauce"],
+            allergens: ["Dairy", "Shellfish"]
         }
     ],
     japanese: [
@@ -441,7 +484,11 @@ export const recipesByCuisine = {
                 "Wet your hands in water with a splash of vinegar so the rice does not stick.",
                 "Do not overfill the roll. Less filling means a tighter roll."
             ],
-            storage: "Best eaten the same day. Refrigerate leftovers up to 1 day, wrapped tightly; the rice firms up, so let it sit at room temperature for 20 minutes before eating."
+            storage: "Best eaten the same day. Refrigerate leftovers up to 1 day, wrapped tightly; the rice firms up, so let it sit at room temperature for 20 minutes before eating.",
+            serve: "Soy sauce, wasabi and pickled ginger.",
+            equipment: ["Bamboo rolling mat", "Very sharp knife", "Rice cooker or pot with lid"],
+            subs: ["Sushi-grade fish → cooked shrimp or avocado", "Rice vinegar → white wine vinegar"],
+            allergens: ["Fish"]
         },
         {
             name: "Ramen",
@@ -477,11 +524,15 @@ export const recipesByCuisine = {
                 "Add toppings like corn, nori, bean sprouts or a drizzle of chili oil to make it your own.",
                 "Slurp as soon as it is served. Fresh noodles are at their best in the first few minutes."
             ],
-            storage: "Store broth, noodles and toppings separately in the refrigerator for up to 3 days. Reheat the broth to boiling before assembling."
+            storage: "Store broth, noodles and toppings separately in the refrigerator for up to 3 days. Reheat the broth to boiling before assembling.",
+            serve: "Chili oil, nori, corn or bean sprouts on the side.",
+            equipment: ["Two pots", "Ladle", "Slotted spoon"],
+            subs: ["Pork → chicken or tofu", "Ramen noodles → udon or thin spaghetti"],
+            allergens: ["Eggs", "Gluten (wheat)", "Soy"]
         },
         {
             name: "Tempura",
-            image: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?auto=format&fit=crop&w=700&q=85",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTprmQBGETUcnWotlAxoHHQI9jiObC832-fnjFLJ4Sv0AUFmfJetpxiGp8&s=10",
             description: "Lightly battered seafood or vegetables fried until crisp and golden, commonly served with a dipping sauce.",
             servings: "3 servings",
             time: "30 mins",
@@ -512,11 +563,15 @@ export const recipesByCuisine = {
                 "Fry in small batches so the oil temperature does not drop.",
                 "Overmixing the batter develops gluten and makes the coating chewy instead of lacy."
             ],
-            storage: "Tempura is best eaten right away. Re-crisp leftovers in a 200°C (400°F) oven or air fryer for 5 minutes."
+            storage: "Tempura is best eaten right away. Re-crisp leftovers in a 200°C (400°F) oven or air fryer for 5 minutes.",
+            serve: "Tentsuyu dipping sauce with grated daikon, and steamed rice.",
+            equipment: ["Deep pot or wok", "Cooking thermometer", "Wire rack"],
+            subs: ["Shrimp → squid or mushrooms", "Flour → ready-made tempura flour mix"],
+            allergens: ["Eggs", "Gluten (wheat)", "Shellfish"]
         },
         {
             name: "Onigiri",
-            image: "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=700&q=85",
+            image: "https://cdn.justonecookbook.com/spai/q_glossy+ret_img+to_auto/www.justonecookbook.com/wp-content/uploads/2023/09/Onigiri-Japanese-Rice-Balls-2053-II-800x1200.jpg",
             description: "Japanese rice balls shaped by hand and often filled with savory ingredients or wrapped in seaweed.",
             servings: "2 servings",
             time: "20 mins",
@@ -546,11 +601,16 @@ export const recipesByCuisine = {
                 "Other fillings include salmon flakes, pickled plum (umeboshi) and kombu.",
                 "Wrap the nori separately in lunchboxes to keep it crisp."
             ],
-            storage: "Keep at room temperature for up to 4 hours, or wrapped in the refrigerator for 1 day. Microwave for 15 seconds to soften chilled rice."
+            storage: "Keep at room temperature for up to 4 hours, or wrapped in the refrigerator for 1 day. Microwave for 15 seconds to soften chilled rice.",
+            serve: "Miso soup and Japanese pickles.",
+            equipment: ["Rice cooker", "Small bowl of water", "Plastic wrap (optional)"],
+            subs: ["Tuna mayo → salmon flakes, umeboshi or kombu", "Nori → sesame seeds"],
+            allergens: ["Fish"]
         },
         {
             name: "Chicken Teriyaki",
-            image: ph("🍗", "japanese", "Chicken Teriyaki"),
+            image: "https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipes%2F2024-05-chicken-teriyaki-190%2Fchicken-teriyaki-190-171-horizontal",
+            photo: "images/recipes/chicken-teriyaki.jpg",
             description: "Juicy pan-seared chicken glazed in a glossy, sweet-savory teriyaki sauce. It comes together in one pan and is perfect over steamed rice.",
             servings: "3 servings",
             time: "30 mins",
@@ -583,11 +643,16 @@ export const recipesByCuisine = {
                 "Chicken thighs are juicier, but breasts work if you pound them to an even thickness.",
                 "Double the sauce and keep it in the refrigerator for up to 2 weeks to use on salmon or vegetables."
             ],
-            storage: "Keeps 4 days in the refrigerator. Reheat gently in a covered pan with a splash of water."
+            storage: "Keeps 4 days in the refrigerator. Reheat gently in a covered pan with a splash of water.",
+            serve: "Steamed rice and blanched broccoli.",
+            equipment: ["Large non-stick skillet", "Small bowl for the sauce", "Tongs"],
+            subs: ["Mirin → 1 tbsp sugar plus 1 tbsp rice vinegar", "Chicken thighs → salmon fillets"],
+            allergens: ["Gluten (wheat)", "Soy", "Sesame"]
         },
         {
             name: "Miso Soup",
-            image: ph("🍲", "japanese", "Miso Soup"),
+            image: "https://www.gimmesomeoven.com/wp-content/uploads/2016/01/Miso-Soup-Recipe-9.jpg",
+            photo: "images/recipes/miso-soup.jpg",
             description: "A light, comforting Japanese soup made with dashi stock, miso paste, tofu and seaweed. It is a staple at breakfast and alongside any meal.",
             servings: "2 servings",
             time: "15 mins",
@@ -617,11 +682,16 @@ export const recipesByCuisine = {
                 "If you have no dashi, use water with 1 teaspoon of instant dashi granules.",
                 "Red miso is stronger and saltier; white miso is milder and sweeter."
             ],
-            storage: "Best fresh. Refrigerate up to 2 days and reheat gently without boiling."
+            storage: "Best fresh. Refrigerate up to 2 days and reheat gently without boiling.",
+            serve: "With rice, grilled fish or any Japanese meal.",
+            equipment: ["Small pot", "Ladle", "Whisk or chopsticks"],
+            subs: ["Dashi → kombu water or vegetable broth", "Wakame → spinach"],
+            allergens: ["Soy", "Fish"]
         },
         {
             name: "Tonkatsu",
-            image: ph("🥩", "japanese", "Tonkatsu"),
+            image: "https://res.cloudinary.com/hksqkdlah/image/upload/c_fill,dpr_2.0,f_auto,fl_lossy.progressive.strip_profile,g_faces:auto,h_599,q_auto:low/SFS_Tonkatsu__Japanese_Fried_Pork_Chops__1_watnts",
+            photo: "images/recipes/tonkatsu.jpg",
             description: "A crispy, golden breaded pork cutlet served with shredded cabbage and tangy tonkatsu sauce. Crunchy outside and tender inside.",
             servings: "2 servings",
             time: "35 mins",
@@ -654,11 +724,16 @@ export const recipesByCuisine = {
                 "Do not crowd the pan. Fry one or two cutlets at a time.",
                 "Rest on a rack, not paper, so steam does not make the bottom soggy."
             ],
-            storage: "Keeps 2 days in the refrigerator. Re-crisp in a 200°C (400°F) oven for 8–10 minutes."
+            storage: "Keeps 2 days in the refrigerator. Re-crisp in a 200°C (400°F) oven for 8–10 minutes.",
+            serve: "Shredded cabbage, steamed rice and miso soup.",
+            equipment: ["Deep pan", "Cooking thermometer", "Wire rack"],
+            subs: ["Pork loin → chicken breast (chicken katsu)", "Panko → regular breadcrumbs"],
+            allergens: ["Eggs", "Gluten (wheat)"]
         },
         {
             name: "Okonomiyaki",
-            image: ph("🥞", "japanese", "Okonomiyaki"),
+            image: "https://res.cloudinary.com/hksqkdlah/image/upload/c_fill,dpr_2.0,f_auto,fl_lossy.progressive.strip_profile,g_faces:auto,q_auto:low/SFS_Okonomiyaki_422_fi2wab",
+            photo: "images/recipes/okonomiyaki.jpg",
             description: "A savory Japanese cabbage pancake cooked on a griddle and topped with sweet-tangy sauce, mayonnaise and bonito flakes.",
             servings: "2 servings",
             time: "30 mins",
@@ -693,11 +768,16 @@ export const recipesByCuisine = {
                 "Add shrimp, squid or cheese into the batter for variations.",
                 "Bonito flakes will \"dance\" from the steam. That is part of the charm."
             ],
-            storage: "Best fresh. Keeps 2 days in the refrigerator; reheat in a dry pan over medium heat."
+            storage: "Best fresh. Keeps 2 days in the refrigerator; reheat in a dry pan over medium heat.",
+            serve: "Cold beer or green tea.",
+            equipment: ["Non-stick pan or griddle", "Wide spatula", "Mixing bowl"],
+            subs: ["Pork belly → bacon or shrimp", "Okonomiyaki sauce → tonkatsu sauce mixed with ketchup"],
+            allergens: ["Eggs", "Gluten (wheat)", "Fish"]
         },
         {
             name: "Gyoza",
-            image: ph("🥟", "japanese", "Gyoza"),
+            image: "https://assets.epicurious.com/photos/628ba0d3fa016bab2139efa2/4:3/w_5617,h_4213,c_limit/Gyoza_RECIPE_051922_34332.jpg",
+            photo: "images/recipes/gyoza.jpg",
             description: "Crescent-shaped Japanese pan-fried dumplings filled with pork and cabbage, crisp on the bottom and juicy inside.",
             servings: "4 servings",
             time: "45 mins",
@@ -732,11 +812,16 @@ export const recipesByCuisine = {
                 "Freeze uncooked gyoza on a tray and then transfer to a bag. Cook from frozen, adding 2 minutes of steaming.",
                 "A non-stick pan and a tight lid are the keys to a crisp bottom and tender top."
             ],
-            storage: "Cooked gyoza keep 2 days in the refrigerator. Reheat in a hot pan with a splash of water. Uncooked gyoza keep 1 month in the freezer."
+            storage: "Cooked gyoza keep 2 days in the refrigerator. Reheat in a hot pan with a splash of water. Uncooked gyoza keep 1 month in the freezer.",
+            serve: "A dipping sauce of soy sauce, vinegar and chili oil.",
+            equipment: ["Non-stick pan with lid", "Small bowl of water", "Mixing bowl"],
+            subs: ["Pork → chicken or mushrooms", "Gyoza wrappers → wonton wrappers"],
+            allergens: ["Gluten (wheat)", "Soy", "Sesame"]
         },
         {
             name: "Oyakodon",
-            image: ph("🍳", "japanese", "Oyakodon"),
+            image: "https://www.justonecookbook.com/wp-content/uploads/2022/10/Oyakodon-0613-I.jpg",
+            photo: "images/recipes/oyakodon.jpg",
             description: "A comforting Japanese rice bowl topped with tender chicken and softly set egg simmered in a sweet dashi-soy sauce. The name means \"parent and child\".",
             servings: "2 servings",
             time: "25 mins",
@@ -768,7 +853,11 @@ export const recipesByCuisine = {
                 "Use a small pan so the egg stays thick and does not spread out too thin.",
                 "Add chopped mitsuba, or green onion, at the end for freshness."
             ],
-            storage: "Best eaten immediately. Do not store with the rice, as the egg turns rubbery when reheated."
+            storage: "Best eaten immediately. Do not store with the rice, as the egg turns rubbery when reheated.",
+            serve: "Miso soup and a small cucumber salad.",
+            equipment: ["Small wide pan with lid", "Rice cooker", "Chopsticks for beating eggs"],
+            subs: ["Dashi → water with a pinch of salt", "Mirin → sweet sherry"],
+            allergens: ["Eggs", "Gluten (wheat)", "Soy", "Fish"]
         }
     ],
     italian: [
@@ -805,7 +894,11 @@ export const recipesByCuisine = {
                 "Do not overload the pizza with toppings. Less lets the crust cook through.",
                 "Drained, dried mozzarella prevents a watery center."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat slices in a hot, dry skillet covered for 3 minutes for a crisp base."
+            storage: "Keeps 3 days in the refrigerator. Reheat slices in a hot, dry skillet covered for 3 minutes for a crisp base.",
+            serve: "A green salad and chili flakes.",
+            equipment: ["Baking tray or pizza stone", "Parchment paper", "Pizza cutter"],
+            subs: ["Mozzarella → provolone or fontina", "Fresh basil → dried oregano"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Spaghetti",
@@ -841,7 +934,11 @@ export const recipesByCuisine = {
                 "Pasta water is liquid gold. The starch makes the sauce silky.",
                 "For a sweeter sauce, add a small pinch of sugar to cut the acidity of the tomatoes."
             ],
-            storage: "Keeps 4 days in the refrigerator. Sauce alone freezes well for 3 months."
+            storage: "Keeps 4 days in the refrigerator. Sauce alone freezes well for 3 months.",
+            serve: "Garlic bread and a green salad.",
+            equipment: ["Large pot", "Wide pan", "Colander"],
+            subs: ["Canned tomatoes → fresh ripe tomatoes (simmer longer)", "Parmesan → pecorino"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Lasagna",
@@ -879,7 +976,11 @@ export const recipesByCuisine = {
                 "Make it a day ahead. The flavors develop and it slices more neatly.",
                 "Use full-fat mozzarella for the best melt."
             ],
-            storage: "Keeps 4 days in the refrigerator, or freeze portions for 3 months. Reheat covered at 175°C (350°F) until hot in the center."
+            storage: "Keeps 4 days in the refrigerator, or freeze portions for 3 months. Reheat covered at 175°C (350°F) until hot in the center.",
+            serve: "A green salad and garlic bread.",
+            equipment: ["23×33 cm baking dish", "Large pan", "Saucepan for the white sauce"],
+            subs: ["Beef → half beef, half Italian sausage", "White sauce → ricotta layer"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Risotto",
@@ -913,11 +1014,16 @@ export const recipesByCuisine = {
                 "Constant gentle stirring releases the starch that makes the creaminess.",
                 "Risotto waits for no one. Serve it right away so it stays loose."
             ],
-            storage: "Best fresh. Leftovers keep 2 days in the refrigerator and are great shaped into patties and pan-fried."
+            storage: "Best fresh. Leftovers keep 2 days in the refrigerator and are great shaped into patties and pan-fried.",
+            serve: "Roast chicken or sautéed mushrooms.",
+            equipment: ["Wide heavy pan", "Saucepan for the broth", "Wooden spoon and ladle"],
+            subs: ["Arborio rice → Carnaroli rice", "Parmesan → Grana Padano"],
+            allergens: ["Dairy"]
         },
         {
-            name: "Spaghetti Carbonara",
-            image: ph("🍝", "italian", "Spaghetti Carbonara"),
+            name: "Carbonara",
+            image: "https://www.thecandidcooks.com/wp-content/uploads/2021/04/spaghetti-carbonara-v2.jpg",
+            photo: "images/recipes/spaghetti-carbonara.jpg",
             description: "The classic Roman pasta with crispy guanciale, eggs, Pecorino Romano and plenty of black pepper. The sauce is silky and made without cream.",
             servings: "3 servings",
             time: "25 mins",
@@ -949,11 +1055,16 @@ export const recipesByCuisine = {
                 "If the sauce thickens too much, add a splash of hot pasta water.",
                 "Use fresh eggs, and work quickly so the residual heat cooks them gently."
             ],
-            storage: "Best eaten right away. It does not reheat well because the egg sauce can turn grainy."
+            storage: "Best eaten right away. It does not reheat well because the egg sauce can turn grainy.",
+            serve: "A green salad with lemon dressing.",
+            equipment: ["Large pot", "Large pan", "Tongs", "Bowl for the egg mixture"],
+            subs: ["Guanciale → pancetta or thick-cut bacon", "Pecorino → Parmesan or a mix of both"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Fettuccine Alfredo",
-            image: ph("🍝", "italian", "Fettuccine Alfredo"),
+            image: "https://cdn.loveandlemons.com/wp-content/uploads/2026/02/fettuccine-alfredo-recipe-580x759.jpg",
+            photo: "images/recipes/fettuccine-alfredo.jpg",
             description: "Ribbons of fettuccine tossed in a rich, creamy sauce of butter, cream and Parmesan. Simple, indulgent and ready in minutes.",
             servings: "3 servings",
             time: "20 mins",
@@ -985,11 +1096,16 @@ export const recipesByCuisine = {
                 "Add grilled chicken or sautéed mushrooms to make it a full meal.",
                 "Serve at once, as the sauce thickens quickly as it cools."
             ],
-            storage: "Keeps 2 days in the refrigerator. Reheat with a splash of milk or cream over low heat."
+            storage: "Keeps 2 days in the refrigerator. Reheat with a splash of milk or cream over low heat.",
+            serve: "Grilled chicken, steamed broccoli or garlic bread.",
+            equipment: ["Large pot", "Wide pan", "Tongs", "Cheese grater"],
+            subs: ["Heavy cream → half-and-half (use a little less)", "Fettuccine → linguine"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Chicken Parmigiana",
-            image: ph("🍗", "italian", "Chicken Parmigiana"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_0BG4eZxYATQ0YE4Jeam_iSE_gEiWaunBw9UaUX2NGzq7vY09rdMIUuA&s=10",
+            photo: "images/recipes/chicken-parmigiana.jpg",
             description: "Crisp breaded chicken cutlets topped with marinara and melted mozzarella, baked until bubbly. An Italian-American favorite.",
             servings: "4 servings",
             time: "50 mins",
@@ -1023,11 +1139,16 @@ export const recipesByCuisine = {
                 "Only put sauce on the center of each cutlet so the edges stay crispy.",
                 "Use a rack in the baking dish to keep the bottom crisp."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat in a 180°C (350°F) oven for 15 minutes."
+            storage: "Keeps 3 days in the refrigerator. Reheat in a 180°C (350°F) oven for 15 minutes.",
+            serve: "Spaghetti with marinara or a green salad.",
+            equipment: ["Baking dish", "Meat mallet or rolling pin", "Large skillet", "Three shallow dishes"],
+            subs: ["Chicken → eggplant slices or veal", "Mozzarella → provolone"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Minestrone",
-            image: ph("🥣", "italian", "Minestrone"),
+            image: "https://www.threeolivesbranch.com/wp-content/uploads/2016/01/minestrone-soup-threeolivesbranch-3-768x1024.jpg",
+            photo: "images/recipes/minestrone.jpg",
             description: "A hearty Italian vegetable soup with beans and small pasta. It is flexible, filling and full of flavor.",
             servings: "6 servings",
             time: "50 mins",
@@ -1063,11 +1184,16 @@ export const recipesByCuisine = {
                 "Use any seasonal vegetables you have, such as green beans, potatoes or kale.",
                 "The pasta absorbs liquid on standing, so add extra broth when reheating."
             ],
-            storage: "Keeps 5 days in the refrigerator or 3 months in the freezer (freeze without the pasta for best texture)."
+            storage: "Keeps 5 days in the refrigerator or 3 months in the freezer (freeze without the pasta for best texture).",
+            serve: "Crusty bread and extra Parmesan.",
+            equipment: ["Large pot", "Knife and cutting board", "Ladle"],
+            subs: ["Cannellini beans → chickpeas or borlotti beans", "Small pasta → rice, or leave it out"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Tiramisu",
-            image: ph("🍰", "italian", "Tiramisu"),
+            image: "https://www.bunsenburnerbakery.com/wp-content/uploads/2016/06/easy-tiramisu-square-29-720x540.jpg",
+            photo: "images/recipes/tiramisu.jpg",
             description: "Layers of coffee-soaked ladyfingers and light mascarpone cream, dusted with cocoa. This classic no-bake Italian dessert gets better overnight.",
             servings: "8 servings",
             time: "30 mins (+ 6 hrs chilling)",
@@ -1101,11 +1227,16 @@ export const recipesByCuisine = {
                 "Do not soak the ladyfingers or the dessert will be soggy.",
                 "Overnight chilling gives the best flavor and neat slices."
             ],
-            storage: "Keeps 3 days in the refrigerator, covered. Do not freeze with the cocoa dusting; add it fresh."
+            storage: "Keeps 3 days in the refrigerator, covered. Do not freeze with the cocoa dusting; add it fresh.",
+            serve: "Espresso or a glass of dessert wine.",
+            equipment: ["20×30 cm dish", "Electric mixer or whisk", "Two large bowls", "Fine sieve"],
+            subs: ["Marsala → coffee liqueur or extra espresso", "Ladyfingers → sponge cake slices"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Caprese Salad",
-            image: ph("🍅", "italian", "Caprese Salad"),
+            image: "https://hips.hearstapps.com/hmg-prod/images/caprese-salad-recipe-2-664ceea357d6f.jpg?crop=0.6666666666666667xw:1xh;center,top&resize=1200:*",
+            photo: "images/recipes/caprese-salad.jpg",
             description: "A fresh Italian salad of ripe tomatoes, creamy mozzarella and basil, dressed simply with olive oil. It is only as good as its ingredients.",
             servings: "2 servings",
             time: "10 mins",
@@ -1136,7 +1267,11 @@ export const recipesByCuisine = {
                 "Tear the basil rather than cutting it to prevent it from blackening.",
                 "Add the dressing just before serving so the salad stays fresh."
             ],
-            storage: "Best eaten right away. Do not store, as the tomatoes release water and the basil wilts."
+            storage: "Best eaten right away. Do not store, as the tomatoes release water and the basil wilts.",
+            serve: "Crusty bread and a glass of white wine.",
+            equipment: ["Sharp knife", "Serving platter"],
+            subs: ["Balsamic glaze → balsamic vinegar", "Fresh mozzarella → burrata"],
+            allergens: ["Dairy"]
         }
     ],
     chinese: [
@@ -1175,7 +1310,11 @@ export const recipesByCuisine = {
                 "Do not overload the wok. Cook in two batches if needed.",
                 "Add cooked shrimp, chicken or Chinese sausage for a heartier meal."
             ],
-            storage: "Cool within 1 hour and refrigerate for up to 3 days. Reheat thoroughly until piping hot."
+            storage: "Cool within 1 hour and refrigerate for up to 3 days. Reheat thoroughly until piping hot.",
+            serve: "Stir-fried vegetables or a simple soup.",
+            equipment: ["Wok or large skillet", "Spatula", "Cutting board"],
+            subs: ["Soy sauce → tamari", "Peas → corn or edamame"],
+            allergens: ["Eggs", "Gluten (wheat)", "Soy"]
         },
         {
             name: "Dumplings",
@@ -1212,7 +1351,11 @@ export const recipesByCuisine = {
                 "Freeze uncooked dumplings on a tray and then bag them. Cook from frozen, adding 2 minutes of steaming.",
                 "Add a spoonful of cold chicken stock to the filling for extra juiciness."
             ],
-            storage: "Cooked dumplings keep 3 days in the refrigerator. Uncooked ones keep 2 months in the freezer."
+            storage: "Cooked dumplings keep 3 days in the refrigerator. Uncooked ones keep 2 months in the freezer.",
+            serve: "A dipping sauce of soy sauce, vinegar and chili oil.",
+            equipment: ["Non-stick pan with lid", "Mixing bowl", "Small bowl of water"],
+            subs: ["Pork → chicken, shrimp or mushrooms", "Cabbage → napa cabbage or garlic chives"],
+            allergens: ["Gluten (wheat)", "Soy"]
         },
         {
             name: "Chow Mein",
@@ -1248,11 +1391,15 @@ export const recipesByCuisine = {
                 "For crispy edges, let the noodles sit untouched for 30 seconds in the wok.",
                 "Add shrimp, chicken or tofu to turn it into a full meal."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat in a hot pan with a splash of water."
+            storage: "Keeps 3 days in the refrigerator. Reheat in a hot pan with a splash of water.",
+            serve: "Spring rolls or a simple soup.",
+            equipment: ["Wok or large pan", "Large pot for the noodles", "Tongs"],
+            subs: ["Egg noodles → spaghetti", "Soy sauce → tamari"],
+            allergens: ["Gluten (wheat)", "Soy"]
         },
         {
             name: "Sweet and Sour Chicken",
-            image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=700&q=85",
+            image: "https://www.recipetineats.com/tachyon/2015/10/Sweet-Sour-Chicken_600px1-Featured.jpg",
             description: "Crispy chicken pieces coated in a tangy sweet-and-sour sauce with colorful vegetables.",
             servings: "4 servings",
             time: "45 mins",
@@ -1286,11 +1433,16 @@ export const recipesByCuisine = {
                 "Double-frying (a second 1-minute fry) makes it even crispier.",
                 "Use pineapple canned in juice rather than syrup so the sauce is not too sweet."
             ],
-            storage: "Keeps 3 days in the refrigerator, though the coating will soften. Reheat in a 200°C (400°F) oven for 10 minutes."
+            storage: "Keeps 3 days in the refrigerator, though the coating will soften. Reheat in a 200°C (400°F) oven for 10 minutes.",
+            serve: "Steamed jasmine rice.",
+            equipment: ["Deep pan or wok", "Small saucepan", "Wire rack"],
+            subs: ["Pineapple → peaches or mango", "Chicken → pork or tofu"],
+            allergens: ["Eggs"]
         },
         {
             name: "Kung Pao Chicken",
-            image: ph("🍗", "chinese", "Kung Pao Chicken"),
+            image: "https://www.allrecipes.com/thmb/77x4rJvy5T1z_Iyc52NK7pDOkJE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-9027-kung-pao-chicken-ddmfs-4x3-hero-9a10c2277f65472a941d932313caab86.jpg",
+            photo: "images/recipes/kung-pao-chicken.jpg",
             description: "A Sichuan stir-fry of diced chicken, roasted peanuts and dried chilies in a sweet, tangy and mildly spicy sauce.",
             servings: "3 servings",
             time: "30 mins",
@@ -1327,11 +1479,16 @@ export const recipesByCuisine = {
                 "Chinkiang black vinegar gives the most authentic tang.",
                 "Add the peanuts at the very end to keep them crisp."
             ],
-            storage: "Best fresh. Keeps 2 days in the refrigerator; the peanuts will soften."
+            storage: "Best fresh. Keeps 2 days in the refrigerator; the peanuts will soften.",
+            serve: "Steamed rice and a green vegetable.",
+            equipment: ["Wok", "Small bowl for the sauce", "Spatula"],
+            subs: ["Peanuts → cashews", "Rice vinegar → balsamic vinegar thinned with a little water"],
+            allergens: ["Gluten (wheat)", "Soy", "Peanuts"]
         },
         {
             name: "Mapo Tofu",
-            image: ph("🌶️", "chinese", "Mapo Tofu"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6WTpuCzF9eY9RxV7l9wtbTYAYby8DDM92wPinh7RE_rLZFRuqtIteiiU&s=10",
+            photo: "images/recipes/mapo-tofu.jpg",
             description: "Silky tofu in a bold, spicy and numbing sauce with minced pork and fermented chili bean paste. A Sichuan classic.",
             servings: "3 servings",
             time: "25 mins",
@@ -1367,11 +1524,16 @@ export const recipesByCuisine = {
                 "Push the tofu gently instead of stirring so the cubes do not break.",
                 "Ground toasted Sichuan peppercorns give the signature numbing \"ma la\" sensation."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat gently on low heat."
+            storage: "Keeps 3 days in the refrigerator. Reheat gently on low heat.",
+            serve: "Plain steamed rice.",
+            equipment: ["Wok or wide pan", "Saucepan for the tofu", "Spatula"],
+            subs: ["Pork → mushrooms (for a vegetarian version)", "Doubanjiang → chili garlic sauce mixed with miso"],
+            allergens: ["Gluten (wheat)", "Soy"]
         },
         {
             name: "Beef and Broccoli",
-            image: ph("🥦", "chinese", "Beef and Broccoli"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY8FYqih4isJn0qH7aWiz4nU0jmAVq1pynBcGKidFLgvRPJPHl9n6E86ma&s=10",
+            photo: "images/recipes/beef-and-broccoli.jpg",
             description: "Tender sliced beef and crisp broccoli in a savory garlic-oyster sauce. A takeout favorite that is quick to make at home.",
             servings: "3 servings",
             time: "25 mins",
@@ -1406,11 +1568,16 @@ export const recipesByCuisine = {
                 "Do not crowd the wok or the beef will steam instead of sear.",
                 "Blanching ahead keeps the broccoli bright and crisp-tender."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat quickly in a hot pan so the broccoli stays crisp."
+            storage: "Keeps 3 days in the refrigerator. Reheat quickly in a hot pan so the broccoli stays crisp.",
+            serve: "Steamed rice.",
+            equipment: ["Wok", "Small pot for blanching", "Sharp knife"],
+            subs: ["Flank steak → sirloin or chicken breast", "Oyster sauce → hoisin sauce"],
+            allergens: ["Gluten (wheat)", "Soy", "Shellfish"]
         },
         {
             name: "Egg Drop Soup",
-            image: ph("🥣", "chinese", "Egg Drop Soup"),
+            image: "https://omnivorescookbook.com/wp-content/uploads/2026/05/260521_Egg-Drop-Soup_550.jpg",
+            photo: "images/recipes/egg-drop-soup.jpg",
             description: "A quick, silky Chinese soup with delicate ribbons of egg in a savory ginger broth.",
             servings: "3 servings",
             time: "15 mins",
@@ -1443,11 +1610,16 @@ export const recipesByCuisine = {
                 "Stir in one direction only to keep the ribbons long.",
                 "Add corn kernels or tofu for a heartier soup."
             ],
-            storage: "Keeps 2 days in the refrigerator. Reheat gently without boiling."
+            storage: "Keeps 2 days in the refrigerator. Reheat gently without boiling.",
+            serve: "As a starter, or with fried rice or dumplings.",
+            equipment: ["Small pot", "Fork or chopsticks", "Ladle"],
+            subs: ["Chicken broth → vegetable broth", "White pepper → black pepper"],
+            allergens: ["Eggs", "Gluten (wheat)", "Soy", "Sesame"]
         },
         {
             name: "Char Siu",
-            image: ph("🍖", "chinese", "Char Siu"),
+            image: "https://becs-table.com.au/wp-content/uploads/2025/04/sliced-char-sui-pork.jpg",
+            photo: "images/recipes/char-siu.jpg",
             description: "Cantonese-style barbecued pork with a sticky, sweet-savory glaze and caramelized edges. Delicious sliced over rice or in buns.",
             servings: "4 servings",
             time: "1 hr (+ 4 hrs marinating)",
@@ -1480,11 +1652,16 @@ export const recipesByCuisine = {
                 "Water in the tray prevents the drippings from burning.",
                 "A final blast under the broiler for 2 minutes gives extra char."
             ],
-            storage: "Keeps 4 days in the refrigerator, or 2 months in the freezer. Reheat covered in the oven."
+            storage: "Keeps 4 days in the refrigerator, or 2 months in the freezer. Reheat covered in the oven.",
+            serve: "Steamed rice and bok choy, or in steamed buns.",
+            equipment: ["Roasting rack and tray", "Foil", "Basting brush"],
+            subs: ["Shaoxing wine → dry sherry", "Pork shoulder → pork tenderloin (roast for less time)"],
+            allergens: ["Gluten (wheat)", "Soy"]
         },
         {
             name: "Congee",
-            image: ph("🍚", "chinese", "Congee"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBJKnPkq8EWlRngPwr36ZlxCS6uZkafm3DQVact6CNJw&s=10",
+            photo: "images/recipes/congee.jpg",
             description: "A soothing Chinese rice porridge simmered until creamy, topped with chicken, ginger and green onion. Comfort food at its simplest.",
             servings: "4 servings",
             time: "1 hr 15 mins",
@@ -1517,7 +1694,11 @@ export const recipesByCuisine = {
                 "Use more water for a thin porridge or less for a thick one.",
                 "Top with a soft egg, fried shallots or crullers for a fuller meal."
             ],
-            storage: "Keeps 4 days in the refrigerator. It thickens as it cools, so add water when reheating."
+            storage: "Keeps 4 days in the refrigerator. It thickens as it cools, so add water when reheating.",
+            serve: "Fried crullers, a soft egg and chili crisp.",
+            equipment: ["Large heavy pot", "Wooden spoon", "Fine sieve"],
+            subs: ["Chicken → shredded pork or tofu", "Water → chicken broth for a richer flavor"],
+            allergens: ["Gluten (wheat)", "Soy", "Sesame"]
         }
     ],
     mexican: [
@@ -1555,7 +1736,11 @@ export const recipesByCuisine = {
                 "Double up the corn tortillas if they are thin, to stop them from tearing.",
                 "Add salsa, sour cream or guacamole at the table."
             ],
-            storage: "Store the beef 4 days in the refrigerator, separately from the tortillas and toppings. Reheat in a skillet."
+            storage: "Store the beef 4 days in the refrigerator, separately from the tortillas and toppings. Reheat in a skillet.",
+            serve: "Salsa, guacamole and sour cream.",
+            equipment: ["Large skillet", "Dry pan for the tortillas", "Small bowls for the toppings"],
+            subs: ["Ground beef → ground turkey or lentils", "Flour tortillas → corn tortillas"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Burrito",
@@ -1590,7 +1775,11 @@ export const recipesByCuisine = {
                 "Place the cheese on the hot filling so it melts.",
                 "Wrap in foil for a portable lunch."
             ],
-            storage: "Wrapped burritos keep 3 days in the refrigerator or 2 months in the freezer. Reheat in the oven or microwave."
+            storage: "Wrapped burritos keep 3 days in the refrigerator or 2 months in the freezer. Reheat in the oven or microwave.",
+            serve: "Salsa, sour cream and tortilla chips.",
+            equipment: ["Dry skillet", "Small pot for the beans", "Foil for wrapping"],
+            subs: ["Beef → shredded chicken or extra beans", "Cheese → dairy-free cheese"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Quesadilla",
@@ -1624,11 +1813,16 @@ export const recipesByCuisine = {
                 "Use a cheese that melts well, like Monterey Jack, Oaxaca or cheddar.",
                 "Do not overfill, or the filling will spill out."
             ],
-            storage: "Best fresh. Keeps 2 days in the refrigerator; reheat in a dry skillet for crispness."
+            storage: "Best fresh. Keeps 2 days in the refrigerator; reheat in a dry skillet for crispness.",
+            serve: "Salsa, sour cream and guacamole.",
+            equipment: ["Large skillet", "Spatula", "Cutting board"],
+            subs: ["Chicken → mushrooms or black beans", "Cheese → Oaxaca cheese or Monterey Jack"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Guacamole",
-            image: ph("🥑", "mexican", "Guacamole"),
+            image: "https://californiaavocado.com/wp-content/uploads/2020/07/Guacamole-Autentico-1.jpeg",
+            photo: "images/recipes/guacamole.jpg",
             description: "Creamy, fresh Mexican avocado dip brightened with lime, onion, tomato and cilantro. Perfect with chips or alongside tacos.",
             servings: "4 servings",
             time: "10 mins",
@@ -1660,11 +1854,16 @@ export const recipesByCuisine = {
                 "Add the tomato just before serving to keep it from getting watery.",
                 "Soaking chopped onion in water for 5 minutes mellows its bite."
             ],
-            storage: "Keeps 1 day in the refrigerator pressed tightly with plastic wrap. A thin layer of lime juice or water on top also helps."
+            storage: "Keeps 1 day in the refrigerator pressed tightly with plastic wrap. A thin layer of lime juice or water on top also helps.",
+            serve: "Tortilla chips, or alongside tacos.",
+            equipment: ["Mixing bowl", "Fork or potato masher", "Sharp knife"],
+            subs: ["Jalapeño → serrano or a pinch of chili flakes", "Cilantro → parsley"],
+            allergens: []
         },
         {
             name: "Chicken Enchiladas",
-            image: ph("🌯", "mexican", "Chicken Enchiladas"),
+            image: "https://assets.epicurious.com/photos/579f850ce4857f9f1047d0b0/1:1/w_2560%2Cc_limit/chicken-enchiladas.jpg",
+            photo: "images/recipes/chicken-enchiladas.jpg",
             description: "Corn tortillas rolled around shredded chicken and cheese, smothered in red enchilada sauce and baked until bubbly.",
             servings: "4 servings",
             time: "50 mins",
@@ -1698,11 +1897,16 @@ export const recipesByCuisine = {
                 "Rotisserie chicken is a great shortcut for the filling.",
                 "Cover with foil if the top is browning too fast."
             ],
-            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. Reheat covered at 175°C (350°F) until hot."
+            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. Reheat covered at 175°C (350°F) until hot.",
+            serve: "Mexican rice and refried beans.",
+            equipment: ["23×33 cm baking dish", "Skillet", "Tongs"],
+            subs: ["Chicken → black beans or spinach", "Red sauce → green salsa verde"],
+            allergens: ["Dairy"]
         },
         {
             name: "Chilaquiles",
-            image: ph("🍽️", "mexican", "Chilaquiles"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhLKml4F5YAvpFIWUtja2GT3DVvlq8gIDiLCbQpeqD7Uom8TyupfdefNuf&s=10",
+            photo: "images/recipes/chilaquiles.jpg",
             description: "Crisp tortilla chips simmered briefly in salsa and topped with eggs, crumbled cheese and crema. A classic Mexican breakfast.",
             servings: "3 servings",
             time: "25 mins",
@@ -1734,11 +1938,16 @@ export const recipesByCuisine = {
                 "For softer chilaquiles, simmer the chips in the salsa for 3–4 minutes.",
                 "Add shredded chicken for more protein."
             ],
-            storage: "Best eaten immediately. The chips go soft quickly, so do not store leftovers."
+            storage: "Best eaten immediately. The chips go soft quickly, so do not store leftovers.",
+            serve: "Refried beans and fresh fruit.",
+            equipment: ["Wide skillet", "Non-stick pan for the eggs", "Spatula"],
+            subs: ["Queso fresco → feta", "Salsa roja → salsa verde"],
+            allergens: ["Dairy", "Eggs"]
         },
         {
             name: "Chicken Fajitas",
-            image: ph("🌶️", "mexican", "Chicken Fajitas"),
+            image: "https://www.recipetineats.com/tachyon/2017/04/Chicken-Fajitas_8.jpg",
+            photo: "images/recipes/chicken-fajitas.jpg",
             description: "Sizzling strips of seasoned chicken with charred peppers and onions, served in warm tortillas with your favorite toppings.",
             servings: "4 servings",
             time: "30 mins",
@@ -1774,11 +1983,16 @@ export const recipesByCuisine = {
                 "Cut everything to the same thickness for even cooking.",
                 "A squeeze of lime at the end brightens the flavor."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat quickly in a hot skillet."
+            storage: "Keeps 3 days in the refrigerator. Reheat quickly in a hot skillet.",
+            serve: "Warm tortillas with guacamole, sour cream and salsa.",
+            equipment: ["Cast-iron skillet", "Tongs", "Small bowl for the spice mix"],
+            subs: ["Chicken → steak or portobello mushrooms", "Flour tortillas → corn tortillas"],
+            allergens: ["Gluten (wheat)"]
         },
         {
             name: "Elote",
-            image: ph("🌽", "mexican", "Elote"),
+            image: "https://i0.wp.com/www.learningtosmoke.com/wp-content/uploads/2020/02/photo-output.jpeg?fit=%2C&ssl=1",
+            photo: "images/recipes/elote.jpg",
             description: "Mexican street corn grilled until charred, then coated in a creamy, tangy mixture and finished with cotija cheese and chili.",
             servings: "4 servings",
             time: "20 mins",
@@ -1810,11 +2024,16 @@ export const recipesByCuisine = {
                 "For corn in a cup (esquites), cut the kernels off the cob and mix them with the sauce and toppings.",
                 "Tajín seasoning adds a lovely tangy, spicy kick."
             ],
-            storage: "Best fresh. Grilled corn keeps 2 days in the refrigerator; add the sauce just before serving."
+            storage: "Best fresh. Grilled corn keeps 2 days in the refrigerator; add the sauce just before serving.",
+            serve: "Alongside tacos or grilled meat.",
+            equipment: ["Grill or grill pan", "Brush or spoon", "Tongs"],
+            subs: ["Cotija → feta or Parmesan", "Sour cream → Mexican crema"],
+            allergens: ["Dairy"]
         },
         {
             name: "Huevos Rancheros",
-            image: ph("🍳", "mexican", "Huevos Rancheros"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ70Mr4wJ-G2oQR6yh4QLXvbhETaJgEuX5YuBU462Hsrgx6PqoqVtU_UrFm&s=10",
+            photo: "images/recipes/huevos-rancheros.jpg",
             description: "Fried eggs on crisp tortillas, topped with a warm, smoky tomato-chili sauce and served with refried beans.",
             servings: "2 servings",
             time: "25 mins",
@@ -1848,11 +2067,16 @@ export const recipesByCuisine = {
                 "Use a lid to quickly set the whites for sunny-side-up eggs.",
                 "Serve with fresh cilantro and a squeeze of lime."
             ],
-            storage: "The sauce keeps 4 days in the refrigerator. Cook the eggs and tortillas fresh."
+            storage: "The sauce keeps 4 days in the refrigerator. Cook the eggs and tortillas fresh.",
+            serve: "Fresh avocado and coffee.",
+            equipment: ["Skillet for the sauce", "Non-stick pan for the eggs", "Potato masher or blender"],
+            subs: ["Corn tortillas → flour tortillas", "Refried beans → black beans"],
+            allergens: ["Dairy", "Eggs"]
         },
         {
             name: "Churros",
-            image: ph("🍩", "mexican", "Churros"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIb67OKCpvEsIBUl5WTwG78t2lG02bpJhe6hx8PpCHpyBSqbMe5QRebrm_&s=10",
+            photo: "images/recipes/churros.jpg",
             description: "Crisp, golden fried dough sticks rolled in cinnamon sugar. Best served warm with chocolate sauce for dipping.",
             servings: "4 servings",
             time: "40 mins",
@@ -1889,7 +2113,11 @@ export const recipesByCuisine = {
                 "Fry just a few at a time to keep the oil hot.",
                 "Churros are best within an hour of frying."
             ],
-            storage: "Best the same day. Reheat in a 175°C (350°F) oven for 5 minutes."
+            storage: "Best the same day. Reheat in a 175°C (350°F) oven for 5 minutes.",
+            serve: "Hot chocolate sauce or dulce de leche.",
+            equipment: ["Deep pot", "Piping bag with a star tip", "Cooking thermometer", "Scissors"],
+            subs: ["Piping bag → zip-top bag with a corner cut off (for rougher shapes)", "Vanilla → extra cinnamon"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         }
     ],
     indian: [
@@ -1929,11 +2157,15 @@ export const recipesByCuisine = {
                 "Add a pinch of sugar if the tomatoes are too acidic.",
                 "Finish with chopped cilantro and a squeeze of lime for freshness."
             ],
-            storage: "Keeps 4 days in the refrigerator, or 3 months in the freezer. The flavor improves overnight."
+            storage: "Keeps 4 days in the refrigerator, or 3 months in the freezer. The flavor improves overnight.",
+            serve: "Basmati rice or naan.",
+            equipment: ["Heavy pot with lid", "Wooden spoon", "Knife and cutting board"],
+            subs: ["Coconut milk → cream or yogurt", "Curry powder → garam masala mixed with turmeric"],
+            allergens: ["Dairy"]
         },
         {
             name: "Biryani",
-            image: "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=700&q=85",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTLETHygJZ1iGyBd7EUjwLwTLqVqBbWrtHBL1FpyvRz9j4_4aXa0_CbLs&s=10",
             description: "An aromatic rice dish layered with fragrant spices and meat or vegetables.",
             servings: "4 servings",
             time: "1 hr 30 mins",
@@ -1968,7 +2200,11 @@ export const recipesByCuisine = {
                 "Add a pinch of saffron soaked in warm milk over the rice for aroma and color.",
                 "A tight seal is the secret to fluffy, fragrant biryani."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat with a sprinkle of water, covered, in the microwave or oven."
+            storage: "Keeps 3 days in the refrigerator. Reheat with a sprinkle of water, covered, in the microwave or oven.",
+            serve: "Cooling raita and a cucumber-onion salad.",
+            equipment: ["Large heavy pot with tight lid", "Pot for par-boiling the rice", "Foil to seal the lid"],
+            subs: ["Chicken → lamb or mixed vegetables", "Biryani masala → garam masala mixed with cumin"],
+            allergens: ["Dairy"]
         },
         {
             name: "Samosa",
@@ -2006,11 +2242,16 @@ export const recipesByCuisine = {
                 "Frying on lower heat gives crisp, flaky blistered pastry.",
                 "Bake at 200°C (400°F) for 25 minutes for a lighter version."
             ],
-            storage: "Keeps 3 days at room temperature in an airtight container. Re-crisp in a 180°C (350°F) oven for 8 minutes."
+            storage: "Keeps 3 days at room temperature in an airtight container. Re-crisp in a 180°C (350°F) oven for 8 minutes.",
+            serve: "Tamarind or mint chutney and a cup of chai.",
+            equipment: ["Rolling pin", "Deep pan or wok", "Cooking thermometer"],
+            subs: ["Peas → corn or chopped carrots", "All-purpose flour → half whole-wheat flour"],
+            allergens: ["Gluten (wheat)"]
         },
         {
             name: "Butter Chicken",
-            image: ph("🍗", "indian", "Butter Chicken"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_7aQkfhsYLBadrTCy4-iEx_huPPTJCOvjOdoyeRaUaJQSQs4OETk-VaU&s=10",
+            photo: "images/recipes/butter-chicken.jpg",
             description: "Tender chicken in a rich, creamy tomato sauce spiced with garam masala and finished with butter. A North Indian favorite.",
             servings: "4 servings",
             time: "55 mins (+ marinating)",
@@ -2047,11 +2288,16 @@ export const recipesByCuisine = {
                 "Crushed dried fenugreek leaves (kasuri methi) rubbed in at the end give the authentic aroma.",
                 "Use thighs rather than breasts for juicier results."
             ],
-            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. Reheat gently and add a splash of cream."
+            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. Reheat gently and add a splash of cream.",
+            serve: "Garlic naan or basmati rice.",
+            equipment: ["Large skillet", "Immersion blender (optional)", "Mixing bowl"],
+            subs: ["Cream → coconut cream", "Garam masala → curry powder"],
+            allergens: ["Dairy"]
         },
         {
             name: "Palak Paneer",
-            image: ph("🥬", "indian", "Palak Paneer"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZHmqpZZFTC__1rhTgF9pAZbVwcsRkv_25rQqrteTyKFu7LOqVxG2jpger&s=10",
+            photo: "images/recipes/palak-paneer.jpg",
             description: "Soft cubes of paneer in a smooth, spiced spinach gravy. A vegetarian favorite that pairs well with roti or rice.",
             servings: "4 servings",
             time: "40 mins",
@@ -2089,11 +2335,16 @@ export const recipesByCuisine = {
                 "Lightly pan-fry the paneer cubes until golden for extra flavor.",
                 "A squeeze of lemon at the end brightens the dish."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat gently; do not boil, as the spinach loses its color."
+            storage: "Keeps 3 days in the refrigerator. Reheat gently; do not boil, as the spinach loses its color.",
+            serve: "Roti, naan or jeera rice.",
+            equipment: ["Blender", "Large pan", "Pot for blanching"],
+            subs: ["Paneer → firm tofu", "Fresh spinach → frozen spinach (thawed and drained)"],
+            allergens: ["Dairy"]
         },
         {
             name: "Chana Masala",
-            image: ph("🫘", "indian", "Chana Masala"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1oF0aU0akjFYSXzC-AteFdLnoDhxLE2xZUTdn3ecz3g&s=10",
+            photo: "images/recipes/chana-masala.jpg",
             description: "Chickpeas simmered in a tangy, spiced tomato and onion gravy. A hearty, plant-based Punjabi classic.",
             servings: "4 servings",
             time: "40 mins",
@@ -2132,11 +2383,16 @@ export const recipesByCuisine = {
                 "A tea bag simmered with the chickpeas gives a darker traditional color.",
                 "Add amchur (dried mango powder) at the end for authentic tang."
             ],
-            storage: "Keeps 5 days in the refrigerator and tastes better the next day. It also freezes well for 3 months."
+            storage: "Keeps 5 days in the refrigerator and tastes better the next day. It also freezes well for 3 months.",
+            serve: "Basmati rice, bhature or naan.",
+            equipment: ["Heavy pot", "Wooden spoon", "Potato masher"],
+            subs: ["Canned chickpeas → cooked dried chickpeas", "Tomatoes → canned tomato puree"],
+            allergens: []
         },
         {
             name: "Dal Tadka",
-            image: ph("🥣", "indian", "Dal Tadka"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB3gWy7dp2FciZJ6YF-Sh7v9DRm79Y84DjHPfGIFdeHVc_fuARAL8GOEo&s=10",
+            photo: "images/recipes/dal-tadka.jpg",
             description: "Creamy yellow lentils finished with a sizzling tempering of ghee, cumin, garlic and chilies. Simple, nourishing everyday comfort food.",
             servings: "4 servings",
             time: "45 mins",
@@ -2173,11 +2429,16 @@ export const recipesByCuisine = {
                 "Soak the lentils for 30 minutes to shorten cooking time.",
                 "Add a squeeze of lemon to brighten the flavor."
             ],
-            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. It thickens as it cools; add water when reheating."
+            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. It thickens as it cools; add water when reheating.",
+            serve: "Basmati rice or roti, with a side of pickle.",
+            equipment: ["Pot with lid", "Small pan for the tadka", "Whisk"],
+            subs: ["Toor dal → masoor dal (red lentils)", "Ghee → vegetable oil"],
+            allergens: ["Dairy"]
         },
         {
             name: "Aloo Gobi",
-            image: ph("🥔", "indian", "Aloo Gobi"),
+            image: "https://veganhuggs.com/wp-content/uploads/2021/04/aloo-gobi-in-bowl-side-view.jpg",
+            photo: "images/recipes/aloo-gobi.jpg",
             description: "A dry-style North Indian curry of potatoes and cauliflower cooked with onion, tomato and warming spices.",
             servings: "4 servings",
             time: "35 mins",
@@ -2215,11 +2476,16 @@ export const recipesByCuisine = {
                 "Do not stir too often, or the cauliflower will turn mushy.",
                 "Letting the vegetables brown slightly at the end adds flavor."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat in a pan to keep the texture."
+            storage: "Keeps 3 days in the refrigerator. Reheat in a pan to keep the texture.",
+            serve: "Roti or paratha with yogurt.",
+            equipment: ["Wide pan with lid", "Wooden spoon", "Knife and cutting board"],
+            subs: ["Cauliflower → broccoli", "Potatoes → sweet potatoes"],
+            allergens: []
         },
         {
             name: "Garlic Naan",
-            image: ph("🫓", "indian", "Garlic Naan"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTsAHVV76pjXxQ_ecm7k6xwuTpfWak6U94BCrFfF3dT9cAKu6-Vd0XSuLO&s=10",
+            photo: "images/recipes/garlic-naan.jpg",
             description: "Soft, pillowy Indian flatbread brushed with garlic butter. Cooked in a hot pan at home, it is perfect for scooping up curry.",
             servings: "6 pieces",
             time: "1 hr (including rising)",
@@ -2255,11 +2521,16 @@ export const recipesByCuisine = {
                 "Keep the dough soft and slightly sticky for tender naan.",
                 "Cover cooked naan with a towel to trap steam and keep them soft."
             ],
-            storage: "Keeps 2 days in an airtight bag at room temperature. Reheat in a dry pan or foil in the oven. Freezes well for 2 months."
+            storage: "Keeps 2 days in an airtight bag at room temperature. Reheat in a dry pan or foil in the oven. Freezes well for 2 months.",
+            serve: "Any curry, dal or raita.",
+            equipment: ["Large mixing bowl", "Rolling pin", "Cast-iron skillet"],
+            subs: ["Yogurt → buttermilk", "Instant yeast → active dry yeast (proof it first)"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Chicken Tikka",
-            image: ph("🍢", "indian", "Chicken Tikka"),
+            image: "https://glebekitchen.com/wp-content/uploads/2016/12/chickentikkakebab.jpg",
+            photo: "images/recipes/chicken-tikka.jpg",
             description: "Chunks of chicken marinated in yogurt and spices, then grilled until charred and juicy. Serve as a starter or with rice and salad.",
             servings: "4 servings",
             time: "40 mins (+ 2 hrs marinating)",
@@ -2295,7 +2566,11 @@ export const recipesByCuisine = {
                 "For extra char, finish under the broiler for 2 minutes.",
                 "Brush the skewers with a little melted butter halfway through for extra juiciness."
             ],
-            storage: "Keeps 3 days in the refrigerator. Reheat in the oven or a hot pan so it does not dry out."
+            storage: "Keeps 3 days in the refrigerator. Reheat in the oven or a hot pan so it does not dry out.",
+            serve: "Mint chutney, naan and sliced red onion.",
+            equipment: ["Skewers", "Baking tray with rack", "Mixing bowl"],
+            subs: ["Chicken → paneer or cauliflower", "Kashmiri chili powder → paprika with a pinch of cayenne"],
+            allergens: ["Dairy"]
         }
     ],
     american: [
@@ -2334,7 +2609,11 @@ export const recipesByCuisine = {
                 "Use 80/20 ground beef for the juiciest burger.",
                 "Keep the meat cold until cooking for a better texture."
             ],
-            storage: "Cooked patties keep 3 days in the refrigerator. Reheat gently; assemble fresh."
+            storage: "Cooked patties keep 3 days in the refrigerator. Reheat gently; assemble fresh.",
+            serve: "Fries, coleslaw or a milkshake.",
+            equipment: ["Grill or cast-iron skillet", "Spatula", "Meat thermometer"],
+            subs: ["Beef → turkey or a plant-based patty", "Buns → lettuce wraps"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Pancakes",
@@ -2372,7 +2651,11 @@ export const recipesByCuisine = {
                 "The first pancake is often a test. Adjust the heat if needed.",
                 "Add blueberries or chocolate chips to the batter once poured in the pan."
             ],
-            storage: "Keeps 3 days in the refrigerator or 2 months in the freezer. Reheat in a toaster or microwave."
+            storage: "Keeps 3 days in the refrigerator or 2 months in the freezer. Reheat in a toaster or microwave.",
+            serve: "Fresh fruit, whipped cream or bacon.",
+            equipment: ["Non-stick pan or griddle", "Whisk and two bowls", "Spatula"],
+            subs: ["Milk → buttermilk (use 1 tsp less baking powder)", "Butter → vegetable oil"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Fried Chicken",
@@ -2408,11 +2691,16 @@ export const recipesByCuisine = {
                 "Dark meat (thighs, drumsticks) is more forgiving than breasts.",
                 "Dip the coated chicken back into the soak, then the flour again, for an extra-craggy crust."
             ],
-            storage: "Keeps 4 days in the refrigerator. Reheat on a rack in a 200°C (400°F) oven for 15 minutes to restore crispness."
+            storage: "Keeps 4 days in the refrigerator. Reheat on a rack in a 200°C (400°F) oven for 15 minutes to restore crispness.",
+            serve: "Mashed potatoes, coleslaw and biscuits.",
+            equipment: ["Heavy pot or deep skillet", "Cooking thermometer", "Wire rack"],
+            subs: ["Milk → buttermilk", "Flour → half flour, half cornstarch for extra crunch"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Mac and Cheese",
-            image: ph("🧀", "american", "Mac and Cheese"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQb4Hf-h0mB-54STmlknSLX7wADeE6bhYUbY_bOnmtpzLfrY-rF_n1hvjX&s=10",
+            photo: "images/recipes/mac-and-cheese.jpg",
             description: "Tender macaroni in a velvety, sharp cheddar sauce. This stovetop version is creamy, comforting and ready in minutes.",
             servings: "4 servings",
             time: "35 mins",
@@ -2446,11 +2734,16 @@ export const recipesByCuisine = {
                 "Sharp cheddar mixed with Gruyère or Monterey Jack gives great flavor and melt.",
                 "A pinch of mustard powder sharpens the cheese flavor without tasting of mustard."
             ],
-            storage: "Keeps 4 days in the refrigerator. Reheat with a splash of milk over low heat."
+            storage: "Keeps 4 days in the refrigerator. Reheat with a splash of milk over low heat.",
+            serve: "Roasted broccoli or a green salad.",
+            equipment: ["Large pot", "Saucepan", "Whisk", "Cheese grater"],
+            subs: ["Cheddar → Gruyère or Monterey Jack", "Elbow macaroni → shells"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Buffalo Wings",
-            image: ph("🍗", "american", "Buffalo Wings"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpmOsKFwSLxMpLaWJx3nC2ehVJ4VuFPCrb7I012loZib8HDA7G_iXSnlg&s=10",
+            photo: "images/recipes/buffalo-wings.jpg",
             description: "Crispy oven-baked chicken wings tossed in a tangy, buttery hot sauce. Serve with celery sticks and blue cheese dressing.",
             servings: "4 servings",
             time: "55 mins",
@@ -2482,11 +2775,16 @@ export const recipesByCuisine = {
                 "Use a rack so hot air circulates around the whole wing.",
                 "Toss in the sauce at the last second to keep them crisp."
             ],
-            storage: "Keeps 3 days in the refrigerator. Re-crisp in a 200°C (400°F) oven for 10 minutes."
+            storage: "Keeps 3 days in the refrigerator. Re-crisp in a 200°C (400°F) oven for 10 minutes.",
+            serve: "Celery sticks, carrots and blue cheese dip.",
+            equipment: ["Baking tray with wire rack", "Large bowl", "Tongs"],
+            subs: ["Chicken wings → cauliflower florets", "Hot sauce → Frank's RedHot"],
+            allergens: ["Dairy"]
         },
         {
             name: "Meatloaf",
-            image: ph("🍖", "american", "Meatloaf"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzW7g2pjOBSNsBNyi0B0fmWSAjjjfOCg6MefX3ZjRn0Yqg7eQiyP4uK11t&s=10",
+            photo: "images/recipes/meatloaf.jpg",
             description: "A classic homestyle meatloaf with a sweet and tangy ketchup glaze. Tender, juicy and great with mashed potatoes.",
             servings: "6 servings",
             time: "1 hr 10 mins",
@@ -2522,11 +2820,16 @@ export const recipesByCuisine = {
                 "A meat thermometer ensures it is cooked through without drying out.",
                 "Leftovers make great sandwiches the next day."
             ],
-            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. Reheat slices covered in a low oven or microwave."
+            storage: "Keeps 4 days in the refrigerator or 3 months in the freezer. Reheat slices covered in a low oven or microwave.",
+            serve: "Mashed potatoes and green beans.",
+            equipment: ["Loaf pan or baking tray", "Large bowl", "Meat thermometer"],
+            subs: ["Beef → half beef, half pork", "Breadcrumbs → crushed crackers or oats"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)", "Fish"]
         },
         {
             name: "Grilled Cheese Sandwich",
-            image: ph("🥪", "american", "Grilled Cheese Sandwich"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_6EZJs3uyTY5qHxbNZWSbgMEZUcihUJbq_l8dvvgW5g&s=10",
+            photo: "images/recipes/grilled-cheese-sandwich.jpg",
             description: "Golden, buttery toasted bread with gooey melted cheddar inside. A simple American comfort classic.",
             servings: "2 servings",
             time: "10 mins",
@@ -2556,11 +2859,16 @@ export const recipesByCuisine = {
                 "Mayonnaise spread on the outside instead of butter gives an extra-crisp, evenly golden crust.",
                 "Pair with tomato soup for dipping."
             ],
-            storage: "Best eaten right away. Reheat in a skillet over low heat; do not microwave."
+            storage: "Best eaten right away. Reheat in a skillet over low heat; do not microwave.",
+            serve: "A bowl of tomato soup for dipping.",
+            equipment: ["Skillet", "Spatula", "Knife"],
+            subs: ["Cheddar → mozzarella, Swiss or American cheese", "Butter → mayonnaise"],
+            allergens: ["Dairy", "Gluten (wheat)"]
         },
         {
             name: "Cornbread",
-            image: ph("🌽", "american", "Cornbread"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQua7ojLFJ36aSHGZVo_LBSD5gGkkA6YvnwhcfgLpEfRWG9vaBD73YVOnE&s=10",
+            photo: "images/recipes/cornbread.jpg",
             description: "A tender, slightly sweet Southern-style cornbread with a golden crust. Great with chili, fried chicken or just butter.",
             servings: "8 servings",
             time: "35 mins",
@@ -2593,11 +2901,16 @@ export const recipesByCuisine = {
                 "Do not overmix or the cornbread will be dense.",
                 "Add jalapeños or shredded cheddar for a savory variation."
             ],
-            storage: "Keeps 3 days at room temperature in an airtight container, or 3 months in the freezer. Warm before serving."
+            storage: "Keeps 3 days at room temperature in an airtight container, or 3 months in the freezer. Warm before serving.",
+            serve: "Chili, fried chicken or honey butter.",
+            equipment: ["20 cm square pan or cast-iron skillet", "Mixing bowls", "Toothpick"],
+            subs: ["Milk → buttermilk", "Sugar → honey"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Apple Pie",
-            image: ph("🥧", "american", "Apple Pie"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHhrvpLKtF2UB5AJ_tuXZ7QAXySkcvCY7ic_eFpjzx4qPcC7JorVg_RBeH&s=10",
+            photo: "images/recipes/apple-pie.jpg",
             description: "A double-crust pie packed with tender cinnamon-spiced apples and baked until golden. A true American dessert.",
             servings: "8 servings",
             time: "1 hr 30 mins",
@@ -2633,11 +2946,16 @@ export const recipesByCuisine = {
                 "Keep the dough cold for a flaky crust; chill it for 20 minutes before baking if it softens.",
                 "Letting the pie cool is essential. Cutting early gives a runny filling."
             ],
-            storage: "Keeps 2 days at room temperature and 5 days in the refrigerator. Reheat slices in a 175°C (350°F) oven for 10 minutes."
+            storage: "Keeps 2 days at room temperature and 5 days in the refrigerator. Reheat slices in a 175°C (350°F) oven for 10 minutes.",
+            serve: "Vanilla ice cream or a slice of sharp cheddar.",
+            equipment: ["9-inch pie dish", "Rolling pin", "Pastry brush", "Baking tray"],
+            subs: ["Tart apples → a mix of tart and sweet apples", "Nutmeg → allspice"],
+            allergens: ["Dairy", "Eggs", "Gluten (wheat)"]
         },
         {
             name: "Cobb Salad",
-            image: ph("🥗", "american", "Cobb Salad"),
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP0xPaZM73C7Cj6a_OFDXd1OzC0qGgbV3cPYnZFfnmtHZ098uGFwCyWE8&s=10",
+            photo: "images/recipes/cobb-salad.jpg",
             description: "A hearty main-dish salad with chicken, bacon, egg, avocado and blue cheese, arranged in neat rows over crisp greens.",
             servings: "2 servings",
             time: "25 mins",
@@ -2672,7 +2990,11 @@ export const recipesByCuisine = {
                 "Squeeze a little lemon over the avocado to keep it green.",
                 "Add the dressing at the last minute so the lettuce stays crisp."
             ],
-            storage: "Best fresh. Store the components separately for up to 2 days and assemble just before eating."
+            storage: "Best fresh. Store the components separately for up to 2 days and assemble just before eating.",
+            serve: "Crusty bread.",
+            equipment: ["Large platter", "Pot for the eggs", "Small jar for the dressing"],
+            subs: ["Blue cheese → feta", "Chicken → turkey or tofu"],
+            allergens: ["Dairy", "Eggs"]
         }
     ]
 };

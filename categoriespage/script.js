@@ -98,13 +98,9 @@ function createRecipeCard(recipe, index) {
     }
 
     const image = document.createElement("img");
-    image.src = recipe.image;
     image.alt = recipe.name;
     image.loading = "lazy";
-
-    image.onerror = function () {
-        this.style.visibility = "hidden";
-    };
+    setRecipeImage(image, recipe);
 
     const title = document.createElement("h3");
     title.textContent = recipe.name;
@@ -183,19 +179,26 @@ function updateActionButtons() {
         : '<i class="fa-regular fa-bookmark"></i>';
 }
 
+function setRecipeImage(img, recipe) {
+    img.onerror = function () {
+        this.onerror = function () {
+            this.style.visibility = "hidden";
+        };
+        this.src = recipe.image;
+    };
+
+    img.src = recipe.photo || recipe.image;
+}
+
 function renderRecipeDetails() {
     const recipe = getCurrentRecipe();
 
     if (!recipe) return;
 
     recipeTitle.textContent = recipe.name;
-    recipeImage.src = recipe.image;
     recipeImage.alt = recipe.name;
     recipeImage.style.visibility = "visible";
-
-    recipeImage.onerror = function () {
-        this.style.visibility = "hidden";
-    };
+    setRecipeImage(recipeImage, recipe);
 
     recipeDescription.textContent = recipe.description;
     recipeCategory.innerHTML =
@@ -309,25 +312,194 @@ function fillStep(item, text) {
     }
 }
 
+/* ---------- Picture guide for each step ---------- */
+
+const STEP_ACTIONS = [
+    { re: /\b(serve|garnish|plate)\w*/i, icon: "🍽️", label: "Serve" },
+    { re: /\b(prep|cut|slice|chop|dice|mince|peel|shred|grate|julienne|trim|pound|crush|score|pit)\w*/i, icon: "🔪", label: "Prep" },
+    { re: /\b(marinate|soak|rest|chill|refrigerate|cool|rise|rising|sit|set aside)\w*/i, icon: "⏳", label: "Rest" },
+    { re: /\b(mix|whisk|stir|combine|beat|knead|toss|dissolve|blend|mash)\w*/i, icon: "🥣", label: "Mix" },
+    { re: /\b(preheat|bake|roast|oven|broil)\w*/i, icon: "♨️", label: "Oven" },
+    { re: /\b(grill|char)\w*/i, icon: "🔥", label: "Grill" },
+    { re: /\b(fry|sauté|saute|sear|brown|toast|heat|cook|crisp)\w*/i, icon: "🍳", label: "Cook" },
+    { re: /\b(boil|blanch|simmer|steam|poach|reduce)\w*/i, icon: "🫕", label: "Simmer" },
+    { re: /\b(shape|roll|fill|seal|assemble|layer|arrange|wrap|thread|dredge|bread|coat|pipe|fold|spread)\w*/i, icon: "🤲", label: "Assemble" },
+    { re: /\b(drain|rinse|wash|squeeze|pat|dry)\w*/i, icon: "💧", label: "Drain & dry" },
+    { re: /\b(top|finish|taste|season|adjust)\w*/i, icon: "✅", label: "Finish" }
+];
+
+const STEP_STOP_WORDS = [
+    "sauce", "powder", "paste", "juice", "seeds", "fresh", "ground", "sliced", "cooked", "whole",
+    "large", "small", "dried", "extra", "virgin", "cooking", "boneless", "skinless", "grated",
+    "minced", "chopped", "diced", "mixed", "plain", "heavy", "green", "black", "white", "brown",
+    "light", "sweet", "sharp", "soft", "firm", "silken", "instant", "active", "purpose", "leaves",
+    "ripe", "tart", "strong", "cooled", "hard", "boiled", "canned", "crushed", "thinly", "finely",
+    "freshly", "pieces", "stalks", "cloves", "optional", "serving", "garnish", "taste", "bite"
+];
+
+function describeStep(step, recipe) {
+    const labelMatch = step.match(/^([^:]{3,45}):\s/);
+    const label = labelMatch ? labelMatch[1] : "";
+    let action = null;
+
+    // The bold label is the best clue; otherwise use whichever action word comes first
+    for (const candidate of STEP_ACTIONS) {
+        if (label && candidate.re.test(label)) {
+            action = candidate;
+            break;
+        }
+    }
+
+    if (!action) {
+        let bestIndex = Infinity;
+        for (const candidate of STEP_ACTIONS) {
+            const found = step.search(candidate.re);
+            if (found !== -1 && found < bestIndex) {
+                bestIndex = found;
+                action = candidate;
+            }
+        }
+    }
+
+    const lower = step.toLowerCase();
+    const ingredients = [];
+
+    recipe.ingredients.forEach(function (ingredient) {
+        const name = ingredient[1].split("(")[0].toLowerCase();
+        const words = name.match(/[a-z]{4,}/g) || [];
+        const matched = words.some(function (word) {
+            if (STEP_STOP_WORDS.indexOf(word) !== -1) return false;
+            return lower.indexOf(word.replace(/(es|s)$/, "")) !== -1;
+        });
+
+        if (matched && ingredients.length < 5 && !ingredients.some(function (item) {
+            return item.icon === ingredient[0];
+        })) {
+            ingredients.push({ icon: ingredient[0], name: ingredient[1].split("(")[0].trim() });
+        }
+    });
+
+    const chips = [];
+    const timePattern = /(\d+(?:[–-]\d+)?)\s*(seconds?|minutes?|mins?|hours?|hrs?)\b/gi;
+    let timeMatch;
+
+    while ((timeMatch = timePattern.exec(step)) && chips.length < 2) {
+        const unit = /^h/i.test(timeMatch[2]) ? "hr" : /^s/i.test(timeMatch[2]) ? "sec" : "min";
+        chips.push("⏱ " + timeMatch[1] + " " + unit);
+    }
+
+    const temperature = step.match(/(\d+(?:[–-]\d+)?°C)(?:\s*\(([^)]*°F)\))?/);
+    if (temperature) {
+        chips.push("🌡 " + temperature[1] + (temperature[2] ? " / " + temperature[2] : ""));
+    }
+
+    return {
+        icon: action ? action.icon : "👩‍🍳",
+        label: action ? action.label : "Cook",
+        ingredients: ingredients,
+        chips: chips
+    };
+}
+
+function buildStepVisual(step, recipe) {
+    const info = describeStep(step, recipe);
+
+    const box = document.createElement("div");
+    box.className = "step-visual";
+
+    const action = document.createElement("span");
+    action.className = "step-action";
+
+    const actionIcon = document.createElement("span");
+    actionIcon.className = "step-action-icon";
+    actionIcon.textContent = info.icon;
+    action.append(actionIcon, info.label);
+    box.appendChild(action);
+
+    if (info.ingredients.length) {
+        const list = document.createElement("span");
+        list.className = "step-ingredients";
+
+        info.ingredients.forEach(function (ingredient) {
+            const icon = document.createElement("span");
+            icon.textContent = ingredient.icon;
+            icon.title = ingredient.name;
+            list.appendChild(icon);
+        });
+
+        box.appendChild(list);
+    }
+
+    info.chips.forEach(function (text) {
+        const chip = document.createElement("span");
+        chip.className = "step-chip";
+        chip.textContent = text;
+        box.appendChild(chip);
+    });
+
+    return box;
+}
+
+// One step: bold label + instruction, the picture guide, and your own photo if you added one
+function buildStepItem(step, index, recipe, withPhoto) {
+    const item = document.createElement("li");
+
+    const text = document.createElement("div");
+    text.className = "step-text";
+    fillStep(text, step);
+
+    item.append(text, buildStepVisual(step, recipe));
+
+    const photo = recipe.stepImages && recipe.stepImages[index];
+
+    if (withPhoto && photo) {
+        const image = document.createElement("img");
+        image.className = "step-photo";
+        image.src = photo;
+        image.alt = "Step " + (index + 1) + ": " + recipe.name;
+        image.loading = "lazy";
+        image.onerror = function () {
+            this.remove();
+        };
+        item.appendChild(image);
+    }
+
+    return item;
+}
+
 function ensureModalExtras() {
     if (document.getElementById("modal-steps")) return;
 
     const modalCard = recipeModal.querySelector(".modal-card");
     const note = modalCard.querySelector(".modal-note");
+    const title = document.getElementById("modal-title");
+    const description = document.getElementById("modal-description");
 
-    const meta = document.createElement("p");
-    meta.id = "modal-meta";
-    meta.className = "modal-meta";
-    modalCard.insertBefore(meta, document.getElementById("modal-description"));
+    const hero = document.createElement("img");
+    hero.id = "modal-hero";
+    hero.className = "modal-hero";
+    modalCard.insertBefore(hero, title);
 
-    function addSection(title, element) {
+    const facts = document.createElement("div");
+    facts.id = "modal-facts";
+    facts.className = "modal-facts";
+    modalCard.insertBefore(facts, description);
+
+    function addSection(title, element, beforeNode) {
         const heading = document.createElement("h3");
         heading.textContent = title;
         heading.className = "modal-section-title";
-        modalCard.insertBefore(heading, note);
-        modalCard.insertBefore(element, note);
-        return heading;
+        modalCard.insertBefore(heading, beforeNode || note);
+        modalCard.insertBefore(element, beforeNode || note);
     }
+
+    // Equipment goes right after the ingredients grid
+    const ingredientsList = document.getElementById("modal-ingredients");
+    const afterIngredients = ingredientsList.nextSibling;
+
+    const equipment = document.createElement("ul");
+    equipment.id = "modal-equipment";
+    addSection("Equipment", equipment, afterIngredients);
 
     const steps = document.createElement("ol");
     steps.id = "modal-steps";
@@ -337,9 +509,21 @@ function ensureModalExtras() {
     tips.id = "modal-tips";
     addSection("Chef's Tips", tips);
 
+    const subs = document.createElement("ul");
+    subs.id = "modal-subs";
+    addSection("Substitutions", subs);
+
+    const serve = document.createElement("p");
+    serve.id = "modal-serve";
+    addSection("Serve With", serve);
+
     const storage = document.createElement("p");
     storage.id = "modal-storage";
     addSection("Storage & Reheating", storage);
+
+    const allergens = document.createElement("p");
+    allergens.id = "modal-allergens";
+    addSection("Allergen Info", allergens);
 
     const printButton = document.createElement("button");
     printButton.type = "button";
@@ -351,6 +535,22 @@ function ensureModalExtras() {
     note.textContent = "Happy cooking!";
 }
 
+function getAllergenText(recipe) {
+    const list = recipe.allergens || [];
+    return (list.length ? "Contains: " + list.join(", ") + ". " : "No common allergens found in the ingredient list. ") +
+        "This is based on the listed ingredients only. Always check the labels of the products you use.";
+}
+
+function fillList(listElement, items) {
+    listElement.replaceChildren();
+
+    (items || []).forEach(function (text) {
+        const item = document.createElement("li");
+        item.textContent = text;
+        listElement.appendChild(item);
+    });
+}
+
 document.getElementById("full-recipe-btn").addEventListener("click", function () {
     const recipe = getCurrentRecipe();
 
@@ -358,10 +558,29 @@ document.getElementById("full-recipe-btn").addEventListener("click", function ()
 
     ensureModalExtras();
 
+    const hero = document.getElementById("modal-hero");
+    hero.alt = recipe.name;
+    hero.style.visibility = "visible";
+    setRecipeImage(hero, recipe);
+
     document.getElementById("modal-title").textContent = recipe.name;
-    document.getElementById("modal-meta").textContent = getTimeParts(recipe)
-        .concat([recipe.servings, recipe.difficulty].filter(Boolean))
-        .join("  •  ");
+
+    const facts = document.getElementById("modal-facts");
+    facts.replaceChildren();
+
+    [
+        recipe.prep ? "🔪 Prep " + recipe.prep : "",
+        recipe.cook ? "🔥 Cook " + recipe.cook : "",
+        recipe.time ? "⏱ Total " + recipe.time : "",
+        recipe.servings ? "🍽 " + recipe.servings : "",
+        recipe.difficulty ? "📊 " + recipe.difficulty : ""
+    ].filter(Boolean).forEach(function (text) {
+        const chip = document.createElement("span");
+        chip.className = "modal-fact";
+        chip.textContent = text;
+        facts.appendChild(chip);
+    });
+
     document.getElementById("modal-description").textContent =
         recipe.description;
 
@@ -370,29 +589,44 @@ document.getElementById("full-recipe-btn").addEventListener("click", function ()
 
     recipe.ingredients.forEach(function (ingredient) {
         const item = document.createElement("li");
-        item.textContent = ingredient[0] + " " + ingredient[1];
+
+        const icon = document.createElement("span");
+        icon.className = "ing-emoji";
+        icon.textContent = ingredient[0];
+
+        const text = document.createElement("span");
+        const match = ingredient[1].match(/^(.*?)\s*\((.*)\)$/);
+
+        const name = document.createElement("span");
+        name.className = "ing-name";
+        name.textContent = match ? match[1] : ingredient[1];
+        text.appendChild(name);
+
+        if (match) {
+            const amount = document.createElement("span");
+            amount.className = "ing-amount";
+            amount.textContent = match[2];
+            text.appendChild(amount);
+        }
+
+        item.append(icon, text);
         modalIngredients.appendChild(item);
     });
+
+    fillList(document.getElementById("modal-equipment"), recipe.equipment);
 
     const modalSteps = document.getElementById("modal-steps");
     modalSteps.replaceChildren();
 
-    (recipe.steps || []).forEach(function (step) {
-        const item = document.createElement("li");
-        fillStep(item, step);
-        modalSteps.appendChild(item);
+    (recipe.steps || []).forEach(function (step, index) {
+        modalSteps.appendChild(buildStepItem(step, index, recipe, true));
     });
 
-    const modalTips = document.getElementById("modal-tips");
-    modalTips.replaceChildren();
-
-    (recipe.tips || []).forEach(function (tip) {
-        const item = document.createElement("li");
-        item.textContent = tip;
-        modalTips.appendChild(item);
-    });
-
+    fillList(document.getElementById("modal-tips"), recipe.tips);
+    fillList(document.getElementById("modal-subs"), recipe.subs);
+    document.getElementById("modal-serve").textContent = recipe.serve || "";
     document.getElementById("modal-storage").textContent = recipe.storage || "";
+    document.getElementById("modal-allergens").textContent = getAllergenText(recipe);
 
     recipeModal.classList.add("open");
     recipeModal.setAttribute("aria-hidden", "false");
@@ -440,26 +674,17 @@ function buildPrintSheet(recipe) {
         return node;
     }
 
-    function list(tag, items, stepStyle) {
+    function plainList(tag, items) {
         const listNode = document.createElement(tag);
         items.forEach(function (text) {
-            const item = document.createElement("li");
-            if (stepStyle) {
-                fillStep(item, text);
-            } else {
-                item.textContent = text;
-            }
-            listNode.appendChild(item);
+            listNode.appendChild(el("li", text));
         });
         return listNode;
     }
 
     const image = document.createElement("img");
-    image.src = recipe.image;
     image.alt = recipe.name;
-    image.onerror = function () {
-        this.style.display = "none";
-    };
+    setRecipeImage(image, recipe);
 
     const metaText = getTimeParts(recipe)
         .concat([
@@ -467,6 +692,12 @@ function buildPrintSheet(recipe) {
             recipe.difficulty ? "Difficulty: " + recipe.difficulty : ""
         ].filter(Boolean))
         .join("   |   ");
+
+    const stepList = document.createElement("ol");
+    stepList.className = "print-steps";
+    (recipe.steps || []).forEach(function (step, index) {
+        stepList.appendChild(buildStepItem(step, index, recipe, true));
+    });
 
     sheet.append(
         el("p", "Flavorly", "print-brand"),
@@ -476,22 +707,38 @@ function buildPrintSheet(recipe) {
         image,
         el("p", recipe.description),
         el("h2", "Ingredients"),
-        list("ul", recipe.ingredients.map(function (ingredient) {
-            return ingredient[1];
-        })),
-        el("h2", "Instructions"),
-        list("ol", recipe.steps || [], true)
+        plainList("ul", recipe.ingredients.map(function (ingredient) {
+            return ingredient[0] + " " + ingredient[1];
+        }))
     );
 
+    if (recipe.equipment && recipe.equipment.length) {
+        sheet.append(el("h2", "Equipment"), el("p", recipe.equipment.join("  •  ")));
+    }
+
+    sheet.append(el("h2", "Instructions"), stepList);
+
     if (recipe.tips && recipe.tips.length) {
-        sheet.append(el("h2", "Chef's Tips"), list("ul", recipe.tips));
+        sheet.append(el("h2", "Chef's Tips"), plainList("ul", recipe.tips));
+    }
+
+    if (recipe.subs && recipe.subs.length) {
+        sheet.append(el("h2", "Substitutions"), plainList("ul", recipe.subs));
+    }
+
+    if (recipe.serve) {
+        sheet.append(el("h2", "Serve With"), el("p", recipe.serve));
     }
 
     if (recipe.storage) {
         sheet.append(el("h2", "Storage & Reheating"), el("p", recipe.storage));
     }
 
-    sheet.append(el("p", "Printed from Flavorly - Discover. Cook. Enjoy.", "print-footer"));
+    sheet.append(
+        el("h2", "Allergen Info"),
+        el("p", getAllergenText(recipe)),
+        el("p", "Printed from Flavorly - Discover. Cook. Enjoy.", "print-footer")
+    );
 }
 
 function printCurrentRecipe() {
@@ -516,40 +763,187 @@ window.addEventListener("beforeprint", function () {
 (function injectRecipeStyles() {
     const style = document.createElement("style");
     style.textContent = `
+        .modal-hero {
+            display: block;
+            width: 100%;
+            height: 210px;
+            margin: 0 0 14px;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+
+        .modal-facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0 0 14px;
+        }
+
+        .modal-fact {
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: #fff;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
         .modal-section-title {
-            margin-top: 20px;
+            margin-top: 22px;
         }
 
-        #modal-tips {
-            margin: 0 0 6px;
-            padding-left: 22px;
+        #modal-ingredients {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 8px;
+            padding: 0;
+            list-style: none;
         }
 
-        #modal-storage {
-            margin: 0 0 18px;
+        #modal-ingredients li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fff;
+            line-height: 1.3;
         }
 
-        .modal-meta {
-            margin: 0 0 12px;
-            color: var(--muted);
+        .ing-emoji {
+            font-size: 28px;
+        }
+
+        .ing-name {
+            display: block;
             font-size: 13px;
             font-weight: 800;
         }
 
-        .modal-card ol {
-            margin: 0 0 18px;
+        .ing-amount {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        #modal-equipment {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0;
+            list-style: none;
+        }
+
+        #modal-equipment li {
+            padding: 5px 13px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: #fff;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        #modal-steps {
+            padding: 0;
+            list-style: none;
+            counter-reset: step;
+        }
+
+        #modal-steps li {
+            position: relative;
+            margin-bottom: 12px;
+            padding: 12px 14px 12px 54px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fff;
+            counter-increment: step;
+        }
+
+        #modal-steps li::before {
+            content: counter(step);
+            position: absolute;
+            top: 12px;
+            left: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .step-visual {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: var(--cream-dark, #fff0d8);
+        }
+
+        .step-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .step-action-icon {
+            font-size: 24px;
+        }
+
+        .step-ingredients {
+            display: inline-flex;
+            gap: 4px;
+            font-size: 22px;
+        }
+
+        .step-chip {
+            padding: 3px 10px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fff;
+            font-size: 11.5px;
+            font-weight: 800;
+        }
+
+        .step-photo {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+
+        #modal-tips,
+        #modal-subs {
+            margin: 0 0 6px;
             padding-left: 22px;
         }
 
-        .modal-card ol li {
-            margin-bottom: 9px;
+        #modal-serve,
+        #modal-storage {
+            margin: 0 0 6px;
+        }
+
+        #modal-allergens {
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-size: 13px;
         }
 
         .modal-print-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin: 0 0 16px;
+            margin: 6px 0 16px;
             padding: 10px 18px;
             border: 0;
             border-radius: 25px;
@@ -588,7 +982,7 @@ window.addEventListener("beforeprint", function () {
                 display: block;
                 color: #000;
                 font-family: 'Nunito', Arial, sans-serif;
-                font-size: 12pt;
+                font-size: 11.5pt;
                 line-height: 1.5;
             }
 
@@ -619,19 +1013,21 @@ window.addEventListener("beforeprint", function () {
                 font-weight: 700;
             }
 
-            #print-sheet img {
+            #print-sheet > img {
                 display: block;
                 width: 100%;
-                max-height: 70mm;
+                max-height: 75mm;
                 margin: 0 0 12px;
-                object-fit: cover;
                 border-radius: 6px;
+                object-fit: cover;
             }
 
             #print-sheet h2 {
                 margin: 16px 0 6px;
+                padding-bottom: 2px;
+                border-bottom: 1px solid #ccc;
                 font-family: 'Playfair Display', Georgia, serif;
-                font-size: 16pt;
+                font-size: 15pt;
                 break-after: avoid;
             }
 
@@ -641,9 +1037,43 @@ window.addEventListener("beforeprint", function () {
                 padding-left: 22px;
             }
 
-            #print-sheet li {
-                margin-bottom: 5px;
+            #print-sheet ul li {
+                margin-bottom: 4px;
                 break-inside: avoid;
+            }
+
+            #print-sheet ol.print-steps li {
+                margin-bottom: 10px;
+                break-inside: avoid;
+            }
+
+            #print-sheet .step-visual {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 8px;
+                margin-top: 3px;
+                padding: 0;
+                border-radius: 0;
+                background: none;
+                color: #555;
+                font-size: 9.5pt;
+            }
+
+            #print-sheet .step-action-icon,
+            #print-sheet .step-ingredients {
+                font-size: 12pt;
+            }
+
+            #print-sheet .step-chip {
+                padding: 0 7px;
+                border: 1px solid #bbb;
+                font-size: 9pt;
+            }
+
+            #print-sheet .step-photo {
+                max-width: 90mm;
+                margin-top: 5px;
             }
 
             #print-sheet .print-footer {
